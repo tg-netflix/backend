@@ -6,10 +6,9 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class MovieDto {
+public class MockupMovieDto {
     private String id;
     private String original_title;
     private String overview;
     private String poster_path;
-
 }

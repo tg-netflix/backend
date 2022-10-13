@@ -1,5 +1,4 @@
 package com.techgrounds.netflix.model;
-
 import lombok.*;
 
 @Getter
