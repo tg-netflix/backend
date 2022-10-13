@@ -1,7 +1,7 @@
 package com.techgrounds.netflix.controller;
 
-import com.techgrounds.netflix.DTO.MockupMovieDto;
-import com.techgrounds.netflix.DTO.MovieResultDTO;
+import com.techgrounds.netflix.model.MockupMovie;
+import com.techgrounds.netflix.model.MovieResult;
 import com.techgrounds.netflix.service.TMDBService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class DemoController {
-
+public class NetflixController {
     @Value("${apiKey}")
     private String apiKey;
 
@@ -26,21 +25,21 @@ public class DemoController {
     }
 
     @GetMapping("/movie")
-    public MovieResultDTO getDiscoverMovie(){
-        return new MovieResultDTO(tmdbService.discoverMovie(apiKey));
+    public MovieResult getDiscoverMovie(){
+        return new MovieResult(tmdbService.discoverMovie(apiKey));
     }
 
     @GetMapping("/movie/{id}")
-    public MockupMovieDto getMovieDetails(@PathVariable Long id){
+    public MockupMovie getMovieDetails(@PathVariable Long id){
         return tmdbService.getMovie(id, apiKey);
     }
     @GetMapping("/movie/{id}/videos")
-    public MockupMovieDto getMovieVideos(@PathVariable Long id){
+    public MockupMovie getMovieVideos(@PathVariable Long id){
         return tmdbService.getMovie(id, apiKey);
     }
 
     @GetMapping("/movie/popular")
-    public List<MockupMovieDto> getPopularMovie(){
+    public List<MockupMovie> getPopularMovie(){
         return tmdbService.popularMovie(apiKey);
     }
 }

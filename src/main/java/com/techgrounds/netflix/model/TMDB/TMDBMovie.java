@@ -1,12 +1,10 @@
-package com.techgrounds.netflix.model;
+package com.techgrounds.netflix.model.TMDB;
 
 import lombok.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
 
-import java.util.Collection;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -15,7 +13,7 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Movie {
+public class TMDBMovie {
 
     @JsonProperty("title")
     private String title;
@@ -57,10 +55,10 @@ public class Movie {
     private String originalLanguage;
 
     @JsonProperty("production_companies")
-    private List<ProductionCompany> productionCompanies;
+    private List<TMDBProductionCompany> productionCompanies;
 
     @JsonProperty("production_countries")
-    private List<ProductionCountry> productionCountries;
+    private List<TMDBProductionCountry> productionCountries;
 
     @JsonProperty("revenue")
     private long revenue;
@@ -69,7 +67,7 @@ public class Movie {
     private int runtime;
 
     @JsonProperty("spoken_languages")
-    private List<Language> spokenLanguages;
+    private List<TMDBLanguage> spokenLanguages;
 
     @JsonProperty("tagline")
     private String tagline;

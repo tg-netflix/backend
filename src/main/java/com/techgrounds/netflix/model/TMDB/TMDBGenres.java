@@ -1,4 +1,4 @@
-package com.techgrounds.netflix.model;
+package com.techgrounds.netflix.model.TMDB;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -6,7 +6,7 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class Genres {
+public class TMDBGenres {
     @JsonProperty("genres")
-    List<Genre> genreList;
+    List<TMDBGenre> genreList;
 }

@@ -1,11 +1,11 @@
-package com.techgrounds.netflix.model;
+package com.techgrounds.netflix.model.TMDB;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class MovieDetails {
+public class TMDBMovieDetails {
 
     private String id;
     private String title;
