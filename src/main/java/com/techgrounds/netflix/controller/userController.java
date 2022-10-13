@@ -17,21 +17,21 @@ public class userController {
         return userService.newUser();
     }
 
-    @GetMapping("liked=${u}")
-    public ResponseEntity getLiked(long user) {
+    @GetMapping("/liked")
+    public ResponseEntity getLiked(@RequestParam long user) {
         return new ResponseEntity(userService.getFavorites(user), HttpStatus.OK);
     }
 
-    @PutMapping("liked=${u, id, liked}")
-    public ResponseEntity setFavorite(long id, long m, boolean liked) {
+    @PutMapping("/liked")
+    public ResponseEntity setFavorite(@RequestParam long id, @RequestParam long m, @RequestParam boolean liked) {
         userService.setFavorite(id, m, liked);
         return new ResponseEntity(true, HttpStatus.OK);
     }
 
-    @GetMapping("suggestions=${u}")
-    public ResponseEntity suggestions(long id) {
+    @GetMapping("/suggestions")
+    public ResponseEntity suggestions(@RequestParam long user) {
         return new ResponseEntity(
-                userService.getSuggestions(id),
+                userService.getSuggestions(user),
                 HttpStatus.OK
         );
     }

@@ -4,11 +4,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import com.techgrounds.netflix.entity.User;
-import com.techgrounds.netflix.repository.UserRepository;
+//import com.techgrounds.netflix.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
+/*@Service
 public class UserServiceH2 implements UserService {
     @Autowired
     private UserRepository userRepository;
@@ -73,4 +73,4 @@ public class UserServiceH2 implements UserService {
     public ArrayList<Long> getSuggestions(long id) {
         return null;
     }
-}
+}*/

@@ -1,12 +1,14 @@
 package com.techgrounds.netflix.service;
 
 import com.techgrounds.netflix.entity.User;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+@Component
 public class MemoryUserService implements UserService {
-    private ArrayList<User> Data;
+    private ArrayList<User> Data = new ArrayList<>();
 
     @Override
     public long newUser() {
@@ -24,7 +26,7 @@ public class MemoryUserService implements UserService {
 
     public boolean setDate(long id, LocalDate date) {
         if (Data.size() < id) return false;
-        Data.get((int)id).Date = date;
+        Data.get((int)id).date = date;
         return true;
     }
 
@@ -36,7 +38,7 @@ public class MemoryUserService implements UserService {
 
     public boolean setFavorite(long id, long movieId, boolean add) {
         if (Data.size() < id) return false;
-        var liked = Data.get((int)id).Liked;
+        var liked = Data.get((int)id).liked;
         if (add) liked.add(movieId);
         else liked.remove(movieId);
         return true;
@@ -45,13 +47,11 @@ public class MemoryUserService implements UserService {
     @Override
     public ArrayList<Long> getFavorites(long id) {
         if (Data.size() < id) return null;
-        return Data.get((int)id).Liked;
+        return Data.get((int)id).liked;
     }
 
     @Override
     public ArrayList<Long> getSuggestions(long id) {
         return null;
     }
-
-
 }

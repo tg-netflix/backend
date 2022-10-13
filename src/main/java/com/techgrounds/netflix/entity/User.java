@@ -1,22 +1,12 @@
 package com.techgrounds.netflix.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-@Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +14,13 @@ public class User {
 
     public String name;
 
-    public ArrayList<Long> Liked;
-    public LocalDate Date;
+    public ArrayList<Long> liked;
+    public LocalDate date;
+
+    public User(long id, String name, ArrayList<Long> liked, LocalDate date) {
+        ID = id;
+        this.name = name;
+        this.liked = liked;
+        this.date = date;
+    }
 }
