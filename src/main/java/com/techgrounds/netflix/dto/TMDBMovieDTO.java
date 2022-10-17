@@ -1,4 +1,4 @@
-package com.techgrounds.netflix.model;
+package com.techgrounds.netflix.dto;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class MockupMovie {
+public class TMDBMovieDTO {
     private String id;
     private String original_title;
     private String overview;
