@@ -19,7 +19,7 @@ public class NetflixController {
     private TMDBService tmdbService;
 
     @Autowired
-    private NetflixService movieService;
+    private NetflixService netflixService;
 
 //    @GetMapping("/")
 //    public String getData(){
@@ -69,7 +69,7 @@ public class NetflixController {
     @GetMapping("/movie/{id}")
     public MovieResponse getMovieDetails(@PathVariable Long id, @RequestParam(required = false, defaultValue = "true")
     boolean details, @RequestParam(required = false) boolean similar){
-        return movieService.getSingleMovie(id, details, similar);
+        return netflixService.getSingleMovie(id, details, similar);
 
 //    probeer apiKey in MovieService aan te maken
     }

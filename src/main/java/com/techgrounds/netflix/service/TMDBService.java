@@ -24,6 +24,6 @@ public interface TMDBService {
 //    in deze interface wordt de data uit TMDB opgevraagd met de endpoint namen van de TMDB website. Deze
 //    data kan dan weer opgeroepen worden in andere classes, zoals de controller
 
-    @GetMapping("/movie/{id}")
+    @GetMapping("/movie/{movie_id}")
     TMDBMovieDTO getMovie(@PathVariable Long id, @RequestParam("api_key") String apiKey);
 }
