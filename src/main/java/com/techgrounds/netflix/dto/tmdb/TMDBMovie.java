@@ -1,4 +1,4 @@
-package com.techgrounds.netflix.dto.TMDB;
+package com.techgrounds.netflix.dto.tmdb;
 
 import lombok.*;
 
@@ -55,10 +55,10 @@ public class TMDBMovie {
     private String originalLanguage;
 
     @JsonProperty("production_companies")
-    private List<TMDBProductionCompany> productionCompanies;
+    private List<?> productionCompanies;
 
     @JsonProperty("production_countries")
-    private List<TMDBProductionCountry> productionCountries;
+    private List<?> productionCountries;
 
     @JsonProperty("revenue")
     private long revenue;
@@ -67,7 +67,7 @@ public class TMDBMovie {
     private int runtime;
 
     @JsonProperty("spoken_languages")
-    private List<TMDBLanguage> spokenLanguages;
+    private List<?> spokenLanguages;
 
     @JsonProperty("tagline")
     private String tagline;

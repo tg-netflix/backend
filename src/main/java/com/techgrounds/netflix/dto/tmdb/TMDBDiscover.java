@@ -1,4 +1,4 @@
-package com.techgrounds.netflix.dto.TMDB;
+package com.techgrounds.netflix.dto.tmdb;
 
 import lombok.*;
 

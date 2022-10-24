@@ -1,6 +1,6 @@
 package com.techgrounds.netflix.service;
 //import com.techgrounds.netflix.dto.TMDBMovieResult;
-import com.techgrounds.netflix.dto.DiscoverDto;
+import com.techgrounds.netflix.dto.tmdb.TMDBDiscover;
 import com.techgrounds.netflix.model.MockupMovie;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +10,7 @@ import java.util.List;
 @FeignClient(name="tmdb", url="https://api.themoviedb.org/3")
 public interface TMDBService {
     @GetMapping(value = "/discover/movie", produces = "application/json")
-    public DiscoverDto discoverMovie(@RequestParam("api_key") String apiKey);
+    TMDBDiscover discoverMovie(@RequestParam("api_key") String apiKey);
 
     @GetMapping(value = "/movie/popular", produces = "application/json")
     List<MockupMovie> popularMovie(@RequestParam("api_key") String apiKey);
@@ -19,5 +19,5 @@ public interface TMDBService {
     MockupMovie getMovie(@PathVariable Long id, @RequestParam("api_key") String apiKey);
 
     @GetMapping(value = "/movie/{id}/videos", produces = "application/json")
-    public String getMovieVideos(@PathVariable Long id, @RequestParam("api_key") String apiKey);
+    String getMovieVideos(@PathVariable Long id, @RequestParam("api_key") String apiKey);
 }

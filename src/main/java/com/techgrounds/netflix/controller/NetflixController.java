@@ -1,6 +1,6 @@
 package com.techgrounds.netflix.controller;
 
-import com.techgrounds.netflix.dto.DiscoverDto;
+import com.techgrounds.netflix.dto.tmdb.TMDBDiscover;
 import com.techgrounds.netflix.model.MockupMovie;
 import com.techgrounds.netflix.service.TMDBService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class NetflixController {
     }
 
     @GetMapping("/discover/movie")
-    public DiscoverDto getDiscoverMovie(){
+    public TMDBDiscover getDiscoverMovie(){
         return tmdbService.discoverMovie(apiKey);
     }
 
