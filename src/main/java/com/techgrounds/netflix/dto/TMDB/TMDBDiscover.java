@@ -1,4 +1,4 @@
-package com.techgrounds.netflix.model.TMDB;
+package com.techgrounds.netflix.dto.TMDB;
 
 import lombok.*;
 
@@ -10,7 +10,7 @@ import java.util.List;
 @ToString
 @Setter
 @Getter
-public class TMDBMovieResult {
+public class TMDBDiscover {
     public String page;
     public List<TMDBMovie> results;
 }

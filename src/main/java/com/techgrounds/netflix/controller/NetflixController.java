@@ -1,7 +1,7 @@
 package com.techgrounds.netflix.controller;
 
+import com.techgrounds.netflix.dto.DiscoverDto;
 import com.techgrounds.netflix.model.MockupMovie;
-import com.techgrounds.netflix.model.MovieResult;
 import com.techgrounds.netflix.service.TMDBService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,9 +24,9 @@ public class NetflixController {
         return apiKey;
     }
 
-    @GetMapping("/movie")
-    public MovieResult getDiscoverMovie(){
-        return new MovieResult(tmdbService.discoverMovie(apiKey));
+    @GetMapping("/discover/movie")
+    public DiscoverDto getDiscoverMovie(){
+        return tmdbService.discoverMovie(apiKey);
     }
 
     @GetMapping("/movie/{id}")
@@ -34,8 +34,8 @@ public class NetflixController {
         return tmdbService.getMovie(id, apiKey);
     }
     @GetMapping("/movie/{id}/videos")
-    public MockupMovie getMovieVideos(@PathVariable Long id){
-        return tmdbService.getMovie(id, apiKey);
+    public String getMovieVideos(@PathVariable Long id){
+        return tmdbService.getMovieVideos(id, apiKey);
     }
 
     @GetMapping("/movie/popular")

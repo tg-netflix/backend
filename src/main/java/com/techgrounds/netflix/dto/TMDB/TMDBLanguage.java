@@ -1,4 +1,4 @@
-package com.techgrounds.netflix.model.TMDB;
+package com.techgrounds.netflix.dto.TMDB;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
