@@ -1,7 +1,6 @@
 package com.techgrounds.netflix.controller;
 
-import com.techgrounds.netflix.dto.TMDBMovieDTO;
-import com.techgrounds.netflix.service.MovieService;
+import com.techgrounds.netflix.service.NetflixService;
 import com.techgrounds.netflix.service.TMDBService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,7 +17,7 @@ public class NetflixController {
     private TMDBService tmdbService;
 
     @Autowired
-    private MovieService movieService;
+    private NetflixService movieService;
 
 //    @GetMapping("/")
 //    public String getData(){
