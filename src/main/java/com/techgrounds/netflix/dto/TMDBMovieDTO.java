@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TMDBMovieDTO {
-    private String id;
+    private int id;
     private String original_title;
     private String overview;
     private String poster_path;
