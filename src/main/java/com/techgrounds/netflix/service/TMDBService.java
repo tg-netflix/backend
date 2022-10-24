@@ -1,5 +1,9 @@
 package com.techgrounds.netflix.service;
+<<<<<<< HEAD
 
+=======
+//import com.techgrounds.netflix.dto.TMDBMovieResult;
+>>>>>>> 2df62c689bea06449fb99398611a1fa602385f95
 import com.techgrounds.netflix.dto.tmdb.TMDBDiscover;
 import com.techgrounds.netflix.model.MockupMovie;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -7,7 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2df62c689bea06449fb99398611a1fa602385f95
 @FeignClient(name="tmdb", url="https://api.themoviedb.org/3")
 public interface TMDBService {
     @GetMapping(value = "/discover/movie", produces = "application/json")
