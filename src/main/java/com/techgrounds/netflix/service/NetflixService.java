@@ -29,7 +29,7 @@ public class NetflixService {
 //                .setDescription(movie.getOverview())
 //                .setRelease_year(movie.getRelease_date())
 //                .setRuntime(movie.getRuntime());
-////                .setGenres(movie.getGenres());
+//                .setGenres(movie.getGenres());
         System.out.println(movieResponse);
 //        System.out.println(movieResponse.getTitle());
 

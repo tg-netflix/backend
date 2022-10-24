@@ -1,18 +1,14 @@
 package com.techgrounds.netflix.dto;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.techgrounds.netflix.service.TMDBService;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 
-import java.util.List;
-
-@Getter
 @Setter
+@Getter
 @ToString
 @NoArgsConstructor
 @Accessors(chain = true)
@@ -23,13 +19,14 @@ public class TMDBMovieDTO {
 //
 //    @Autowired
 //    private TMDBService tmdbService;
+
+
     private long id;
-//    private List<?> genres;
     private String title;
     private String overview;
     private String release_date;
     private int runtime;
-
+    //    private List<?> genres;
 
 //    @JsonCreator
 //    public TMDBMovieDTO(@JsonProperty("id") Long id, @JsonProperty("title") String title,
