@@ -2,6 +2,8 @@ package com.techgrounds.netflix.dto;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @ToString
@@ -9,8 +11,22 @@ import lombok.*;
 @AllArgsConstructor
 public class TMDBMovieDTO {
     private int id;
-    private String original_title;
+    private List<?> genres;
+    private String title;
     private String overview;
-    private String poster_path;
-//    hierin staat welke json data de TMDB endpoint terug moet geven, zonder dat de data zelf mooier gemaakt is
+    private int release_date;
+    private int runtime;
+
+//    private int adult; for age_certificate?
+//    private List<String> actors;
+//    private List<String> writers;
+//    private List<String> directors;
+//    private List<?> similar;
+
+//    production_companies
+//    production_countries
+//    Ook toevoegen aan informatie?
+//    original_language
+//    original_title vs title?
+//    popularity?
 }
