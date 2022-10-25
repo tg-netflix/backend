@@ -22,7 +22,7 @@ public class MovieResponse {
     private List<String> keywords;
     private String release_date;
     private int runtime;
-//    private String age_certificate;
+    private String age_certificate;
     private List<String> actors;
     private List<String> writers;
     private List<String> directors;

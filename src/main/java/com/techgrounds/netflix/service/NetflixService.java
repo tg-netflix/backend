@@ -18,6 +18,7 @@ public class NetflixService {
     @Autowired
     private TMDBService tmdbService;
 
+
     public MovieResponse getSingleMovie(Long id, boolean details, boolean similar){
         MovieResponse movieResponse = new MovieResponse();
         TMDBMovieDTO movie = tmdbService.getMovie(id, apiKey);
@@ -44,6 +45,27 @@ public class NetflixService {
         List<String> keywords = movieKeywords.getKeywords().stream()
                 .map(TMDBKeywordNameDTO::getName).toList();
         movieResponse.setKeywords(keywords);
+
+        TMDBReleaseDatesResults releaseDateResults = tmdbService.getCertification(id, apiKey);
+        List<TMDBCertificateReleaseDates> release_dates = releaseDateResults.getResults().stream()
+                .filter(certification -> certification.getIso_3166_1().equalsIgnoreCase("US"))
+                .findFirst()
+                .map(TMDBAgeCertificateDTO::getRelease_dates)
+                        .orElse(null);
+
+
+//        List<List<TMDBCertificateReleaseDates>> release_dates = releaseDateResults.getResults().stream()
+//                .filter(certification -> certification.getIso_3166_1().equalsIgnoreCase("US"))
+//                .map(TMDBAgeCertificateDTO::getRelease_dates)
+//                .toList();
+        movieResponse.setAge_certificate(release_dates.toString());
+
+
+//        TMDBCertificateReleaseDates tmdbCertificateReleaseDates = new TMDBCertificateReleaseDates();
+//        tmdbCertificateReleaseDates.setCertification(release_dates.toString());
+//        movieResponse.setAge_certificate(tmdbCertificateReleaseDates.getCertification());
+//        movieResponse.setAge_certificate(release_dates.toString());
+
 
         TMDBCreditsDTO movieCredits = tmdbService.getCredits(id, apiKey);
         List<String> actors = movieCredits.getCast().stream()
