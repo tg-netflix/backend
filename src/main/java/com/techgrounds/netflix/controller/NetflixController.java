@@ -1,6 +1,7 @@
 package com.techgrounds.netflix.controller;
 
 import com.techgrounds.netflix.response.MovieResponse;
+import com.techgrounds.netflix.service.FanArtTVService;
 import com.techgrounds.netflix.service.NetflixService;
 import com.techgrounds.netflix.service.TMDBService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class NetflixController {
 //    controller class returns methods from other classes when endpoint is called
-
     @Value("${apiKey}")
     private String apiKey;
-
+    @Value("${fanApiKey}")
+    private String fanApiKey;
     @Autowired
     private TMDBService tmdbService;
-
     @Autowired
     private NetflixService netflixService;
+    @Autowired
+    private FanArtTVService fanArtTVService;
 
     @GetMapping("/")
     public String getGreeting() {
@@ -37,6 +39,11 @@ public class NetflixController {
     public MovieResponse getMovieDetails(@PathVariable Long id, @RequestParam(required = false, defaultValue = "true")
     boolean details, @RequestParam(required = false) boolean similar){
         return netflixService.getSingleMovie(id, details, similar);
+    }
+
+    @GetMapping("/testlogo")
+    public String getData(){
+        return fanApiKey;
     }
 }
 

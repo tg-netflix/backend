@@ -1,6 +1,5 @@
 package com.techgrounds.netflix.service;
-import com.techgrounds.netflix.dto.TMDBCreditsDTO;
-import com.techgrounds.netflix.dto.TMDBMovieDTO;
+import com.techgrounds.netflix.dto.tmdb.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +11,18 @@ public interface TMDBService {
     @GetMapping("/movie/{id}")
     TMDBMovieDTO getMovie(@PathVariable Long id, @RequestParam("api_key") String apiKey);
 
+    @GetMapping("/movie/{id}/videos")
+    TMDBVideoDTO getVideos(@PathVariable Long id, @RequestParam("api_key") String apiKey);
+
+    @GetMapping("/movie/{id}/keywords")
+    TMDBKeywordsDTO getKeywords(@PathVariable Long id, @RequestParam("api_key") String apiKey);
+
+    @GetMapping("/movie/{id}/release_dates")
+    TMDBAgeCertificateDTO getCertification(@PathVariable Long id, @RequestParam("api_key") String apiKey);
+
     @GetMapping("/movie/{id}/credits")
     TMDBCreditsDTO getCredits(@PathVariable Long id, @RequestParam("api_key") String apiKey);
+
+    @GetMapping("/movie/{id}/similar")
+    TMDBSimilarDTO getSimilarMovies(@PathVariable Long id, @RequestParam("api_key") String apiKey);
 }

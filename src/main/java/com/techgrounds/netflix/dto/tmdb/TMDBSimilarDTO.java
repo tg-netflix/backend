@@ -1,4 +1,4 @@
-package com.techgrounds.netflix.dto;
+package com.techgrounds.netflix.dto.tmdb;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,8 +11,8 @@ import lombok.experimental.Accessors;
 @ToString
 @NoArgsConstructor
 @Accessors(chain = true)
-public class TMDBVideoDTO {
+public class TMDBSimilarDTO {
 
-//    Add trailer by using TMDB endpoint /movie/{movie_id}/videos
+//    Add similar movies from TMDB endpoint /movie/{movie_id}/similar
 
 }

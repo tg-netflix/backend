@@ -1,8 +1,6 @@
 package com.techgrounds.netflix.service;
 
-import com.techgrounds.netflix.dto.GenreDTO;
-import com.techgrounds.netflix.dto.TMDBCreditsDTO;
-import com.techgrounds.netflix.dto.TMDBMovieDTO;
+import com.techgrounds.netflix.dto.tmdb.*;
 import com.techgrounds.netflix.response.MovieResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,17 +24,38 @@ public class NetflixService {
         movieResponse.setId(movie.getId())
                 .setTitle(movie.getTitle())
                 .setDescription(movie.getOverview())
-                .setRelease_year(movie.getRelease_date())
+                .setRelease_date(movie.getRelease_date())
                 .setRuntime(movie.getRuntime());
 
         List<String> genres = movie.getGenres().stream()
-                .map(GenreDTO::getName).toList();
+                .map(TMDBGenreDTO::getName).toList();
         movieResponse.setGenres(genres);
 
+        TMDBKeywordsDTO movieKeywords = tmdbService.getKeywords(id, apiKey);
+        List<String> keywords = movieKeywords.getKeywords().stream()
+                .map(TMDBKeywordNameDTO::getName).toList();
+        movieResponse.setKeywords(keywords);
+
         TMDBCreditsDTO movieCredits = tmdbService.getCredits(id, apiKey);
+        List<String> actors = movieCredits.getCast().stream()
+                .filter(actor -> actor.getKnown_for_department().equals("Acting"))
+                .map(TMDBCastDTO::getName)
+                .limit(10)
+                .toList();
+        movieResponse.setActors(actors);
 
+        List<String> writers = movieCredits.getCrew().stream()
+                .filter(writer -> writer.getKnown_for_department().equals("Writing"))
+                .map(TMDBCastDTO::getName)
+                .toList();
+        movieResponse.setWriters(writers);
 
-        System.out.println(movieResponse);
+        List<String> directors = movieCredits.getCrew().stream()
+                .filter(director -> director.getKnown_for_department().equals("Directing"))
+                .map(TMDBCastDTO::getName)
+                .toList();
+        movieResponse.setDirectors(directors);
+
         return movieResponse;
     }
 }

@@ -1,5 +1,6 @@
-package com.techgrounds.netflix.dto;
+package com.techgrounds.netflix.dto.tmdb;
 
+import com.techgrounds.netflix.dto.tmdb.TMDBCastDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,6 +17,7 @@ import java.util.List;
 public class TMDBCreditsDTO {
 
     private List<TMDBCastDTO> cast;
+    private List<TMDBCastDTO> crew;
 
 //    Add names of cast from TMDB endpoint /movie/{movie_id}/credits Only names.
 //    cast is a list. Add only names from that array, but max 10 actors, 10 writers and 10 directors

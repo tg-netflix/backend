@@ -1,4 +1,4 @@
-package com.techgrounds.netflix.dto;
+package com.techgrounds.netflix.dto.tmdb;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
@@ -22,7 +22,7 @@ public class TMDBMovieDTO {
     private String overview;
     private String release_date;
     private int runtime;
-    private List<GenreDTO> genres;
+    private List<TMDBGenreDTO> genres;
 
 
 //    TMDBCreditsDTO and TMDBCastDTO will be getting information for NetflixService about cast. Are these variables needed?
