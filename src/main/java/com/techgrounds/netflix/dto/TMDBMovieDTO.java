@@ -7,6 +7,8 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import java.util.List;
+
 @Setter
 @Getter
 @ToString
@@ -14,63 +16,23 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TMDBMovieDTO {
-//    @Value("${apiKey}")
-//    private String apiKey;
-//
-//    @Autowired
-//    private TMDBService tmdbService;
-
 
     private long id;
     private String title;
     private String overview;
     private String release_date;
     private int runtime;
-    //    private List<?> genres;
+    private List<GenreDTO> genres;
 
-//    @JsonCreator
-//    public TMDBMovieDTO(@JsonProperty("id") Long id, @JsonProperty("title") String title,
-//                            @JsonProperty("release_date") String release_date, @JsonProperty("overview") String overview,
-//                            @JsonProperty("runtime") int runtime) {
-//        this.id = id;
-//        this.title = title;
-//        this.release_date = release_date;
-//        this.overview = overview;
-//        this.runtime = runtime;
-//    }
-//
-//    public TMDBService getMovieDetail(@JsonProperty("id") Long id, @JsonProperty("title") String title,
-//                                      @JsonProperty("release_date") String release_date, @JsonProperty("overview") String overview,
-//                                      @JsonProperty("runtime") int runtime){
-//        this.id = id;
-//        this.title = title;
-//        this.release_date = release_date;
-//        this.overview = overview;
-//        this.runtime = runtime;
-//        return getMovieDetail(id, title, release_date, overview, runtime);
-//    }
-//
-//    @JsonProperty("id")
-//    private Long id;
-//
-//    @JsonProperty("title")
-//    private String title;
-//
-//    @JsonProperty("release_date")
-//    private String release_date;
-//
-//    @JsonProperty("overview")
-//    private String overview;
-//
-//    @JsonProperty("runtime")
-//    private int runtime;
 
-    //    private int adult; for age_certificate?
+//    TMDBCreditsDTO and TMDBCastDTO will be getting information for NetflixService about cast. Are these variables needed?
+//    Keeping them commented out just in case
+
+//    private int adult; for age_certificate?
 //    private List<String> actors;
 //    private List<String> writers;
 //    private List<String> directors;
 //    private List<?> similar;
-
 //    production_companies
 //    production_countries
 //    Ook toevoegen aan informatie?

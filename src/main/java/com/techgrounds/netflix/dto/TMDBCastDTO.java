@@ -11,8 +11,9 @@ import lombok.experimental.Accessors;
 @ToString
 @NoArgsConstructor
 @Accessors(chain = true)
-public class TMDBKeywordsDTO {
+public class TMDBCastDTO {
 
-//    add keywords from TMDB endpoint /movie/{movie_id}/keywords
+    private String name;
+    private String known_for_department;
 
 }
