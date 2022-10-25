@@ -6,12 +6,16 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import java.util.List;
+
 @Setter
 @Getter
 @ToString
 @NoArgsConstructor
 @Accessors(chain = true)
 public class TMDBVideoDTO {
+
+    private List<TMDBTrailerDTO> results;
 
 //    Add trailer by using TMDB endpoint /movie/{movie_id}/videos
 //    https://www.youtube.com/watch?v=BdJKm16Co6M

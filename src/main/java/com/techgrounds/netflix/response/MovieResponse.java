@@ -14,7 +14,7 @@ import java.util.List;
 public class MovieResponse {
 
     private long id;
-//    private String trailer;
+    private String trailer;
 //    private String logo;
     private List<String> genres;
     private String title;
