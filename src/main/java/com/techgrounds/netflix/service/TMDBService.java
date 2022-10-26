@@ -37,7 +37,7 @@ public interface TMDBService {
     TMDBKeywordsDTO getKeywords(@PathVariable Long id, @RequestParam("api_key") String apiKey);
 
     @GetMapping("/movie/{id}/release_dates")
-    TMDBReleaseDatesResults getCertification(@PathVariable Long id, @RequestParam("api_key") String apiKey);
+    TMDBReleaseDatesResultsDTO getCertification(@PathVariable Long id, @RequestParam("api_key") String apiKey);
 
     @GetMapping("/movie/{id}/credits")
     TMDBCreditsDTO getCredits(@PathVariable Long id, @RequestParam("api_key") String apiKey);

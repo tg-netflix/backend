@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @ToString
 @NoArgsConstructor
 @Accessors(chain = true)
-public class TMDBReleaseDatesResults {
+public class TMDBReleaseDatesResultsDTO {
 //    age_certificate will be added from TMDB endpoint /movie/{id}/release_dates
 
     private List<TMDBAgeCertificateDTO> results;

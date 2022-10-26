@@ -1,10 +1,11 @@
 package com.techgrounds.netflix.service;
 
-import com.techgrounds.netflix.dto.FanArtTVLogoDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.techgrounds.netflix.dto.fanarttv.FanArtTVLogoDTO;
 
 @FeignClient(name="fanarttv", url="http://webservice.fanart.tv/v3")
 public interface FanArtTVService {

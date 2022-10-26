@@ -1,4 +1,4 @@
-package com.techgrounds.netflix.dto;
+package com.techgrounds.netflix.dto.fanarttv;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
