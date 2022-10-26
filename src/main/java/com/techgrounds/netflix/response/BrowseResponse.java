@@ -10,12 +10,6 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class BrowseResponse {
-    private String page;
-    private String name;
-    private List<MovieDto> movies;
-
-//    private Object banner;
-//    private List<?> categories;
-
-
+    private Object banner;
+    private List<?> categories;
 }

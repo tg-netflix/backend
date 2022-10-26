@@ -21,7 +21,10 @@ public class NetflixController {
     private MovieService movieService;
 
     @GetMapping(value = "/browse")
-    public BrowseResponse getDiscoverMovie(@RequestParam String categories, @RequestParam(required = false, defaultValue = "false") boolean banner, @RequestParam(required = false, defaultValue = "1") int page){
+    public BrowseResponse getDiscoverMovie(
+            @RequestParam String categories,
+            @RequestParam(required = false, defaultValue = "false") boolean banner,
+            @RequestParam(required = false, defaultValue = "1") int page){
         return movieService.getBrowseMovies(categories, banner, page);
     }
 
