@@ -1,6 +1,5 @@
 package com.techgrounds.netflix.dto.tmdb;
 
-import com.techgrounds.netflix.dto.tmdb.TMDBCastDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,11 +14,43 @@ import java.util.List;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class TMDBCreditsDTO {
+//    actors, writers and directors will be added from TMDB endpoint /movie/{id}/credits
 
     private List<TMDBCastDTO> cast;
     private List<TMDBCastDTO> crew;
 
-//    Add names of cast from TMDB endpoint /movie/{movie_id}/credits Only names.
-//    cast is a list. Add only names from that array, but max 10 actors, 10 writers and 10 directors
-//    make sure to filter the names on known_for_department
+    public List<String> getAllActors(){
+        return getCast().stream()
+                .filter(actor -> actor.getKnown_for_department().equalsIgnoreCase("Acting"))
+                .map(TMDBCastDTO::getName)
+                .limit(10)
+                .toList();
+    }
+
+    public List<String> getAllWriters(){
+        return getCrew().stream()
+                .filter(writer -> writer.getKnown_for_department().equalsIgnoreCase("Writing"))
+                .map(TMDBCastDTO::getName)
+                .toList();
+    }
+
+    public List<String> getAllDirectors(){
+        return getCrew().stream()
+                .filter(director -> director.getKnown_for_department().equalsIgnoreCase("Directing"))
+                .map(TMDBCastDTO::getName)
+                .toList();
+    }
+
+    @Setter
+    @Getter
+    @ToString
+    @NoArgsConstructor
+    @Accessors(chain = true)
+    static class TMDBCastDTO {
+
+        private String name;
+        private String known_for_department;
+
+    }
 }
+

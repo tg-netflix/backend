@@ -16,6 +16,7 @@ import java.util.List;
 @Accessors(chain = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TMDBMovieDTO {
+//    movie details will be added from TMDB endpoint /movie/{id}
 
     private long id;
     private String title;
@@ -24,19 +25,19 @@ public class TMDBMovieDTO {
     private int runtime;
     private List<TMDBGenreDTO> genres;
 
+    public List<String> getAllGenres(){
+        return getGenres().stream()
+                .map(TMDBGenreDTO::getName)
+                .toList();
+    }
 
-//    TMDBCreditsDTO and TMDBCastDTO will be getting information for NetflixService about cast. Are these variables needed?
-//    Keeping them commented out just in case
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @Accessors(chain = true)
+    static class TMDBGenreDTO {
 
-//    private int adult; for age_certificate?
-//    private List<String> actors;
-//    private List<String> writers;
-//    private List<String> directors;
-//    private List<?> similar;
-//    production_companies
-//    production_countries
-//    Ook toevoegen aan informatie?
-//    original_language
-//    original_title vs title?
-//    popularity?
+        private String name;
+
+    }
 }

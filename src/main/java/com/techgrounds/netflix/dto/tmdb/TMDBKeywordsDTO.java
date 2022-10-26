@@ -14,8 +14,25 @@ import java.util.List;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class TMDBKeywordsDTO {
+//    keywords will be added from TMDB endpoint /movie/{id}/keywords
 
     private List<TMDBKeywordNameDTO> keywords;
-//    add keywords from TMDB endpoint /movie/{movie_id}/keywords
 
+    public List<String> getListOfKeywords(){
+        return getKeywords().stream()
+                .map(TMDBKeywordNameDTO::getName)
+                .limit(3)
+                .toList();
+    }
+
+    @Setter
+    @Getter
+    @ToString
+    @NoArgsConstructor
+    @Accessors(chain = true)
+    static class TMDBKeywordNameDTO {
+
+        private String name;
+
+    }
 }

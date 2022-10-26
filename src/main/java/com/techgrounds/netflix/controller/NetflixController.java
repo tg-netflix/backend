@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class NetflixController {
-//    controller class returns methods from other classes when endpoint is called
+//    this controller will return methods from other classes when endpoints are called
+
     @Value("${apiKey}")
     private String apiKey;
     @Value("${fanApiKey}")

@@ -12,7 +12,9 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class TMDBSimilarDTO {
+//    similar will be added from TMDB endpoint /movie/{id}/similar
 
-//    Add similar movies from TMDB endpoint /movie/{movie_id}/similar
+//    age certificate and runtime should be gotten from /movie/{id} endpoint
+//    max 6 similar movies
 
 }

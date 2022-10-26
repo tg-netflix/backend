@@ -10,8 +10,8 @@ import java.util.List;
 
 @Service
 public class NetflixService {
-//    hier wordt de data omgezet in een method die in de controller returned kan worden wanneer een
-//    endpoint wordt aangesproken
+//    in this class the MovieResponse variables will be set
+
     @Value("${apiKey}")
     private String apiKey;
 
@@ -19,8 +19,11 @@ public class NetflixService {
     private TMDBService tmdbService;
 
 
+//    method to call in controller for getting al details of a single movie
     public MovieResponse getSingleMovie(Long id, boolean details, boolean similar){
         MovieResponse movieResponse = new MovieResponse();
+
+//        set basic movie information
         TMDBMovieDTO movie = tmdbService.getMovie(id, apiKey);
         movieResponse.setId(movie.getId())
                 .setTitle(movie.getTitle())
@@ -28,65 +31,36 @@ public class NetflixService {
                 .setRelease_date(movie.getRelease_date())
                 .setRuntime(movie.getRuntime());
 
+//        set trailer
         TMDBVideoDTO videos = tmdbService.getVideos(id, apiKey);
-        List<String> trailers = videos.getResults().stream()
-                .filter(trailer -> trailer.getType().equalsIgnoreCase("Trailer")
-                        && trailer.getSite().equalsIgnoreCase("YouTube") && trailer.isOfficial())
-                .map(TMDBTrailerDTO::getKey)
-                .limit(1)
-                .toList();
-        movieResponse.setTrailer(trailers.toString());
+        movieResponse.setTrailer(videos.getTrailerResult());
 
-        List<String> genres = movie.getGenres().stream()
-                .map(TMDBGenreDTO::getName).toList();
-        movieResponse.setGenres(genres);
+//        set genres
+        movieResponse.setGenres(movie.getAllGenres());
 
+//        set keywords
         TMDBKeywordsDTO movieKeywords = tmdbService.getKeywords(id, apiKey);
-        List<String> keywords = movieKeywords.getKeywords().stream()
-                .map(TMDBKeywordNameDTO::getName).toList();
+        List<String> keywords = movieKeywords.getListOfKeywords();
         movieResponse.setKeywords(keywords);
 
-        TMDBReleaseDatesResults releaseDateResults = tmdbService.getCertification(id, apiKey);
-        List<TMDBCertificateReleaseDates> release_dates = releaseDateResults.getResults().stream()
-                .filter(certification -> certification.getIso_3166_1().equalsIgnoreCase("US"))
-                .findFirst()
-                .map(TMDBAgeCertificateDTO::getRelease_dates)
-                        .orElse(null);
+//        set age_certificate
+        TMDBReleaseDatesResults movieCertification = tmdbService.getCertification(id, apiKey);
+        movieResponse.setAge_certificate(movieCertification.getAllResults());
 
-
-//        List<List<TMDBCertificateReleaseDates>> release_dates = releaseDateResults.getResults().stream()
-//                .filter(certification -> certification.getIso_3166_1().equalsIgnoreCase("US"))
-//                .map(TMDBAgeCertificateDTO::getRelease_dates)
-//                .toList();
-        movieResponse.setAge_certificate(release_dates.toString());
-
-
-//        TMDBCertificateReleaseDates tmdbCertificateReleaseDates = new TMDBCertificateReleaseDates();
-//        tmdbCertificateReleaseDates.setCertification(release_dates.toString());
-//        movieResponse.setAge_certificate(tmdbCertificateReleaseDates.getCertification());
-//        movieResponse.setAge_certificate(release_dates.toString());
-
-
+//        set actors
         TMDBCreditsDTO movieCredits = tmdbService.getCredits(id, apiKey);
-        List<String> actors = movieCredits.getCast().stream()
-                .filter(actor -> actor.getKnown_for_department().equalsIgnoreCase("Acting"))
-                .map(TMDBCastDTO::getName)
-                .limit(10)
-                .toList();
+        List<String> actors = movieCredits.getAllActors();
         movieResponse.setActors(actors);
 
-        List<String> writers = movieCredits.getCrew().stream()
-                .filter(writer -> writer.getKnown_for_department().equalsIgnoreCase("Writing"))
-                .map(TMDBCastDTO::getName)
-                .toList();
+//        set writers
+        List<String> writers = movieCredits.getAllWriters();
         movieResponse.setWriters(writers);
 
-        List<String> directors = movieCredits.getCrew().stream()
-                .filter(director -> director.getKnown_for_department().equalsIgnoreCase("Directing"))
-                .map(TMDBCastDTO::getName)
-                .toList();
+//        set directors
+        List<String> directors = movieCredits.getAllDirectors();
         movieResponse.setDirectors(directors);
 
+//        return movieResponse with all set variables
         return movieResponse;
     }
 }

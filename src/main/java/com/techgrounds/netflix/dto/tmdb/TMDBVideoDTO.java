@@ -7,6 +7,7 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Setter
 @Getter
@@ -14,11 +15,30 @@ import java.util.List;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class TMDBVideoDTO {
+//        trailer will be added from TMDB endpoint /movie/{id}/videos
 
     private List<TMDBTrailerDTO> results;
 
-//    Add trailer by using TMDB endpoint /movie/{movie_id}/videos
-//    https://www.youtube.com/watch?v=BdJKm16Co6M
-//    endpoint will look like /watch and @requestparam for trailer key
-//    "official": true. Only use official trailers
+    public String getTrailerResult(){
+        return getResults().stream()
+                .filter(trailer -> trailer.getType().equalsIgnoreCase("Trailer")
+                        && trailer.getSite().equalsIgnoreCase("YouTube") && trailer.isOfficial())
+                .map(TMDBTrailerDTO::getKey)
+                .limit(1)
+                .collect(Collectors.joining());
+    }
+
+    @Setter
+    @Getter
+    @ToString
+    @NoArgsConstructor
+    @Accessors(chain = true)
+    static class TMDBTrailerDTO {
+
+        private String key;
+        private String site;
+        private String type;
+        private boolean official;
+
+    }
 }

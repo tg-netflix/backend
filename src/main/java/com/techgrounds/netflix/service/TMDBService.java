@@ -5,8 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 @FeignClient(name="tmdb", url="https://api.themoviedb.org/3")
 public interface TMDBService {
-//    in deze interface wordt de data uit TMDB opgevraagd met de endpoint namen van de TMDB website. Deze
-//    data kan dan weer opgeroepen worden in andere classes, zoals de controller
+//    in this interface endpoints from TMDB will be called to use the TMDB data in our own endpoints
 
     @GetMapping("/movie/{id}")
     TMDBMovieDTO getMovie(@PathVariable Long id, @RequestParam("api_key") String apiKey);

@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class MovieResponse {
+//    this class will contain all variables that the frontend wishes to receive
 
     private long id;
     private String trailer;
