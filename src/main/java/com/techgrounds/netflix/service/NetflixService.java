@@ -1,5 +1,7 @@
 package com.techgrounds.netflix.service;
 
+import com.techgrounds.netflix.dto.Banner;
+import com.techgrounds.netflix.dto.fanarttv.FanArtTVLogoDTO;
 import com.techgrounds.netflix.dto.tmdb.*;
 import com.techgrounds.netflix.response.MovieResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +26,14 @@ public class NetflixService {
     @Value("${apiKey}")
     private String apiKey;
 
+    @Value("${fanApiKey}")
+    private String fanApiKey;
+
     @Autowired
     private TMDBService tmdbService;
 
+    @Autowired
+    private FanArtTVService fanArtTVService;
 
 //    method to call in controller for getting al details of a single movie
     public MovieResponse getSingleMovie(Long id, boolean details, boolean similar){
@@ -83,9 +90,9 @@ public class NetflixService {
 public BrowseResponse getBrowseMovies(String categories, boolean banner, int page) {
         BrowseResponse browseResponse = new BrowseResponse();
         // banner
-//        if(banner){
-//            browseResponse.setBanner(getBannerInfo());
-//        }
+        if(banner){
+            browseResponse.setBanner(getBannerInfo());
+        }
 
         //list of categories
         List<CategorieDto> newCateList = new ArrayList<>();
@@ -137,12 +144,10 @@ public BrowseResponse getBrowseMovies(String categories, boolean banner, int pag
 
         browseResponse.setCategories(newCateList);
 
-//        hier spreek TMDB service aan
-//        en zet resultaat daarvan om naar BrowseResponse
         return browseResponse;
     }
     
-    private MockupMovie getBannerInfo() {
+    private Banner getBannerInfo() {
         CategorieDto categorieDto = new CategorieDto();
         categorieDto.setMovies(tmdbService.popularMovie(apiKey, 1).getResults());
         int min = 1;
@@ -150,11 +155,18 @@ public BrowseResponse getBrowseMovies(String categories, boolean banner, int pag
         int randomNumber = ThreadLocalRandom.current().nextInt(min,max + 1);
         Long randomMovieId = Long.valueOf(Integer.parseInt(categorieDto.getMovies().get(randomNumber).getId()));
 
-        // System.out.println(randomMovieId);
-        // MockupMovie mockupMovie = tmdbService.getMovie(randomMovieId, apiKey);
-        // return mockupMovie;
-        return null;
+        Banner banner = new Banner();
+        MovieResponse movieResponse = getSingleMovie(randomMovieId, true, false);
+        FanArtTVLogoDTO fanArtTVLogoDTO = fanArtTVService.getLogo(randomMovieId, fanApiKey);
+        banner.setId(movieResponse.getId());
+        banner.setTrailer(movieResponse.getTrailer());
+        banner.setTitle(movieResponse.getTitle());
+        banner.setDescription(movieResponse.getDescription());
+        banner.setAge_certificate(movieResponse.getAge_certificate());
+        banner.setLogo(fanArtTVLogoDTO.getName());
+        banner.setBackdrop_path(tmdbService.getMovie(randomMovieId, apiKey).getBackdrop_path());
 
+        return banner;
     }
 
     public CategorieDto getPopularMovie(String genreName, int page){

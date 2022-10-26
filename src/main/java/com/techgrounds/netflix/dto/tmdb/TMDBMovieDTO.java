@@ -24,6 +24,7 @@ public class TMDBMovieDTO {
     private String release_date;
     private int runtime;
     private List<TMDBGenreDTO> genres;
+    private String backdrop_path;
 
     public List<String> getAllGenres(){
         return getGenres().stream()
