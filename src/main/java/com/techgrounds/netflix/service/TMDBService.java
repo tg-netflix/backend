@@ -2,7 +2,7 @@ package com.techgrounds.netflix.service;
 
 import com.techgrounds.netflix.dto.tmdb.TMDBDiscover;
 import com.techgrounds.netflix.dto.tmdb.TMDBGenresList;
-import com.techgrounds.netflix.model.MockupMovie;
+import com.techgrounds.netflix.dto.tmdb.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,22 +25,23 @@ public interface TMDBService {
                                @RequestParam(value = "primary_release_year", required = false) int yearRand,
                                @RequestParam(value = "page", required = false,  defaultValue = "1") int page);
 
-    @RequestMapping(method = RequestMethod.GET, value = "/movie/{id}", produces = "application/json")
-    MockupMovie getMovie(@PathVariable Long id, @RequestParam("api_key") String apiKey);
-//
-//    @GetMapping(value = "/movie/{id}/videos", produces = "application/json")
-//    String getMovieVideos(@PathVariable Long id, @RequestParam("api_key") String apiKey);
+//    in this interface endpoints from TMDB will be called to use the TMDB data in our own endpoints
 
+    @GetMapping("/movie/{id}")
+    TMDBMovieDTO getMovie(@PathVariable Long id, @RequestParam("api_key") String apiKey);
 
+    @GetMapping("/movie/{id}/videos")
+    TMDBVideoDTO getVideos(@PathVariable Long id, @RequestParam("api_key") String apiKey);
 
-//    @GetMapping(value = "/discover/movie", produces = "application/json")
-//    TMDBDiscover discoverMovie(@RequestParam("api_key") String apiKey);
-//    @GetMapping(value = "/discover/movie", produces = "application/json")
-//    TMDBDiscover latestMovie(@RequestParam("api_key") String apiKey,
-//                             @RequestParam("sort_by") String sortBy,
-//                             @RequestParam("release_date.lte") String date);
-//    @GetMapping(value = "/discover/movie", produces = "application/json")
-//    TMDBDiscover movieWithGenre(@RequestParam("api_key") String apiKey,
-//                                @RequestParam("with_genres") String genreId);
-//
+    @GetMapping("/movie/{id}/keywords")
+    TMDBKeywordsDTO getKeywords(@PathVariable Long id, @RequestParam("api_key") String apiKey);
+
+    @GetMapping("/movie/{id}/release_dates")
+    TMDBReleaseDatesResults getCertification(@PathVariable Long id, @RequestParam("api_key") String apiKey);
+
+    @GetMapping("/movie/{id}/credits")
+    TMDBCreditsDTO getCredits(@PathVariable Long id, @RequestParam("api_key") String apiKey);
+
+    @GetMapping("/movie/{id}/similar")
+    TMDBSimilarDTO getSimilarMovies(@PathVariable Long id, @RequestParam("api_key") String apiKey);
 }
