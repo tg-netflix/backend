@@ -27,5 +27,5 @@ public class MovieResponse {
     private List<String> actors;
     private List<String> writers;
     private List<String> directors;
-//    private List<?> similar;
+    private List<Object> similar;
 }

@@ -2,6 +2,7 @@ package com.techgrounds.netflix.service;
 
 import com.techgrounds.netflix.dto.tmdb.*;
 import com.techgrounds.netflix.response.MovieResponse;
+import com.techgrounds.netflix.response.SimilarMovieResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,9 @@ import com.techgrounds.netflix.response.BrowseResponse;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 
@@ -32,9 +35,10 @@ public class NetflixService {
     public MovieResponse getSingleMovie(Long id, boolean details, boolean similar){
         MovieResponse movieResponse = new MovieResponse();
 
-//        set basic movie information
+//        set basic movie information like id, title, description, release_date, runtime and genres
         TMDBMovieDTO movie = tmdbService.getMovie(id, apiKey);
         movieResponse.setId(movie.getId())
+                .setGenres(movie.getAllGenres())
                 .setTitle(movie.getTitle())
                 .setDescription(movie.getOverview())
                 .setRelease_date(movie.getRelease_date())
@@ -44,35 +48,47 @@ public class NetflixService {
         TMDBVideoDTO videos = tmdbService.getVideos(id, apiKey);
         movieResponse.setTrailer(videos.getTrailerResult());
 
-//        set genres
-        movieResponse.setGenres(movie.getAllGenres());
-
 //        set keywords
         TMDBKeywordsDTO movieKeywords = tmdbService.getKeywords(id, apiKey);
-        List<String> keywords = movieKeywords.getListOfKeywords();
-        movieResponse.setKeywords(keywords);
+        movieResponse.setKeywords(movieKeywords.getListOfKeywords());
 
 //        set age_certificate
         TMDBReleaseDatesResultsDTO movieCertification = tmdbService.getCertification(id, apiKey);
         movieResponse.setAge_certificate(movieCertification.getAllResults());
 
-//        set actors
+//        set actors, writers and directors
         TMDBCreditsDTO movieCredits = tmdbService.getCredits(id, apiKey);
-        List<String> actors = movieCredits.getAllActors();
-        movieResponse.setActors(actors);
+        movieResponse.setActors(movieCredits.getAllActors());
+        movieResponse.setWriters(movieCredits.getAllWriters());
+        movieResponse.setDirectors(movieCredits.getAllDirectors());
 
-//        set writers
-        List<String> writers = movieCredits.getAllWriters();
-        movieResponse.setWriters(writers);
 
-//        set directors
-        List<String> directors = movieCredits.getAllDirectors();
-        movieResponse.setDirectors(directors);
+//        TMDBSimilarDTO similarMoviesList = tmdbService.getSimilarMovies(id, apiKey);
+//        SimilarMovieResponse similarMovieResponse = new SimilarMovieResponse();
+//        similarMovieResponse.setBackdrop_path(similarMoviesList.getBackdrop_path())
+//                .setDescription(similarMoviesList.getOverview())
+//                .setId(similarMoviesList.getId())
+//                .setTitle(similarMoviesList.getTitle())
+//                .setRelease_date(similarMoviesList.getRelease_date());
+//        movieResponse.setSimilar(similarMovieResponse);
+
+//        Only get similar movies if similar parameter is true:
+//        if(similar == true) {
+//            movieResponse.setSimilar();
+//        }
 
 //        return movieResponse with all set variables
         return movieResponse;
     }
 
+    public SimilarMovieResponse getSimilarMovies(Long id, boolean details, boolean similar){
+        SimilarMovieResponse similarMovieResponse = new SimilarMovieResponse();
+        TMDBSimilarDTO similarMoviesList = tmdbService.getSimilarMovies(id, apiKey);
+
+
+
+        return similarMovieResponse;
+    }
 //     
 // 
 // 
