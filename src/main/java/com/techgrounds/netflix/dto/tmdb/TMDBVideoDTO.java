@@ -20,12 +20,16 @@ public class TMDBVideoDTO {
     private List<TMDBTrailerDTO> results;
 
     public String getTrailerResult(){
-        return getResults().stream()
+        String result = getResults().stream()
                 .filter(trailer -> trailer.getType().equalsIgnoreCase("Trailer")
                         && trailer.getSite().equalsIgnoreCase("YouTube") && trailer.isOfficial())
                 .map(TMDBTrailerDTO::getKey)
                 .limit(1)
                 .collect(Collectors.joining());
+        if(result.length() == 0) {
+            result = "dQw4w9WgXcQ";
+        }
+        return result;
     }
 
     @Setter
