@@ -171,7 +171,7 @@ public BrowseResponse getBrowseMovies(String categories, boolean banner, int pag
         Long randomMovieId = (long) Integer.parseInt(categorieDto.getMovies().get(randomNumber).getId());
 
         Banner banner = new Banner();
-        MovieResponse movieResponse = getSingleMovie(randomMovieId, true, false);
+        MovieResponse movieResponse = getSingleMovie(randomMovieId, false);
 //        FanArtTVLogoDTO fanArtTVLogoDTO = fanArtTVService.getLogo(randomMovieId, fanApiKey);
         banner.setId(movieResponse.getId());
         banner.setTrailer(movieResponse.getTrailer());
