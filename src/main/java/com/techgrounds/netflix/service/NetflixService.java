@@ -178,13 +178,17 @@ public BrowseResponse getBrowseMovies(String categories, boolean banner, int pag
 
         Banner banner = new Banner();
         MovieResponse movieResponse = getSingleMovie(randomMovieId, false);
-        FanArtTVLogoDTO fanArtTVLogoDTO = fanArtTVService.getMovieLogo(randomMovieId, fanApiKey);
+        try {
+            FanArtTVLogoDTO fanArtTVLogoDTO = fanArtTVService.getMovieLogo(randomMovieId, fanApiKey);
+            banner.setLogo(fanArtTVLogoDTO.getFirstLogo());
+        }catch (Exception e){
+            banner.setLogo("https://i.chzbgr.com/full/9655877632/hD517A0BC/person-lokihee");
+        }
         banner.setId(movieResponse.getId());
         banner.setTrailer(movieResponse.getTrailer());
         banner.setTitle(movieResponse.getTitle());
         banner.setOverview(movieResponse.getOverview());
         banner.setAge_certificate(movieResponse.getAge_certificate());
-        banner.setLogo(fanArtTVLogoDTO.getFirstLogo());
         banner.setBackdrop_path(movieResponse.getBackdrop_path());
 
         return banner;
