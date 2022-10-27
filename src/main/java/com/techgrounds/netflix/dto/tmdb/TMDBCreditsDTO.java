@@ -29,14 +29,16 @@ public class TMDBCreditsDTO {
 
     public List<String> getAllWriters(){
         return getCrew().stream()
-                .filter(writer -> writer.getKnown_for_department().equalsIgnoreCase("Writing"))
+                .filter(writer -> writer.getKnown_for_department().equalsIgnoreCase("Writing")
+                        && writer.getJob().equalsIgnoreCase("Screenplay"))
                 .map(TMDBCastDTO::getName)
                 .toList();
     }
 
     public List<String> getAllDirectors(){
         return getCrew().stream()
-                .filter(director -> director.getKnown_for_department().equalsIgnoreCase("Directing"))
+                .filter(director -> director.getKnown_for_department().equalsIgnoreCase("Directing")
+                        && director.getJob().equalsIgnoreCase("Director"))
                 .map(TMDBCastDTO::getName)
                 .toList();
     }
@@ -50,6 +52,7 @@ public class TMDBCreditsDTO {
 
         private String name;
         private String known_for_department;
+        private String job;
 
     }
 }

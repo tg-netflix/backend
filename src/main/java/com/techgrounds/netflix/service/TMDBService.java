@@ -8,15 +8,18 @@ import org.springframework.web.bind.annotation.*;
 
 @FeignClient(name="tmdb", url="https://api.themoviedb.org/3")
 public interface TMDBService {
+//    in this interface endpoints from TMDB will be called to use the TMDB data in our own endpoints
+
+//    /browse endpoint
     @GetMapping("/genre/movie/list")
     TMDBGenresList getGenresList(@RequestParam("api_key") String apiKey);
-    @GetMapping(value = "/movie/popular", produces = "application/json")
+    @GetMapping("/movie/popular")
     TMDBDiscover popularMovie(@RequestParam("api_key") String apiKey,
                               @RequestParam(value = "page", required = false,  defaultValue = "1") int page);
-    @GetMapping(value = "/movie/top_rated", produces = "application/json")
+    @GetMapping("/movie/top_rated")
     TMDBDiscover topRatedMovie(@RequestParam("api_key") String apiKey,
                                @RequestParam(value = "page", required = false,  defaultValue = "1") int page);
-    @GetMapping(value = "/discover/movie", produces = "application/json")
+    @GetMapping("/discover/movie")
     TMDBDiscover movieNonGenre(@RequestParam("api_key") String apiKey,
                                @RequestParam(value = "with_genres", required = false,  defaultValue = "") String genreId,
                                @RequestParam(value = "sort_by", required = false,  defaultValue = "popularity.desc") String sortBy,
@@ -25,8 +28,8 @@ public interface TMDBService {
                                @RequestParam(value = "primary_release_year", required = false) int yearRand,
                                @RequestParam(value = "page", required = false,  defaultValue = "1") int page);
 
-//    in this interface endpoints from TMDB will be called to use the TMDB data in our own endpoints
 
+//    /movie endpoint
     @GetMapping("/movie/{id}")
     TMDBMovieDTO getMovie(@PathVariable Long id, @RequestParam("api_key") String apiKey);
 
