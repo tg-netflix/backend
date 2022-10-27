@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import com.techgrounds.netflix.dto.CategorieDto;
 import com.techgrounds.netflix.dto.tmdb.TMDBDiscover;
 import com.techgrounds.netflix.dto.tmdb.TMDBGenre;
-import com.techgrounds.netflix.model.MockupMovie;
 import com.techgrounds.netflix.response.BrowseResponse;
 
 import java.time.LocalDate;
