@@ -56,8 +56,14 @@ public class NetflixService {
         movieResponse.setTrailer(videos.getTrailerResult());
 
 //        set logo
-        FanArtTVLogoDTO movieLogos = fanArtTVService.getMovieLogo(id, fanApiKey);
-        movieResponse.setLogo(movieLogos.getFirstLogo());
+        try {
+            FanArtTVLogoDTO movieLogos = fanArtTVService.getMovieLogo(id, fanApiKey);
+            movieResponse.setLogo(movieLogos.getFirstLogo());
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+            movieResponse.setLogo("https://i.chzbgr.com/full/9655877632/hD517A0BC/person-lokihee");
+        }
 
 //        set keywords
         TMDBKeywordsDTO movieKeywords = tmdbService.getKeywords(id, apiKey);
