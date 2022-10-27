@@ -1,5 +1,6 @@
 package com.techgrounds.netflix.response;
 
+import com.techgrounds.netflix.dto.SimilarMovieDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,12 +15,13 @@ import java.util.List;
 public class MovieResponse {
 //    this class will contain all variables that the frontend wishes to receive
 
+    private String backdrop_path;
     private long id;
     private String trailer;
-//    private String logo;
+    private String logo;
     private List<String> genres;
     private String title;
-    private String description;
+    private String overview;
     private List<String> keywords;
     private String release_date;
     private int runtime;
@@ -27,5 +29,5 @@ public class MovieResponse {
     private List<String> actors;
     private List<String> writers;
     private List<String> directors;
-    private List<Object> similar;
+    private List<SimilarMovieDTO> similar;
 }

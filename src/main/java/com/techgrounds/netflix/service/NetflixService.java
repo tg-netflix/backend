@@ -1,8 +1,9 @@
 package com.techgrounds.netflix.service;
 
+import com.techgrounds.netflix.dto.SimilarMovieDTO;
+import com.techgrounds.netflix.dto.fanarttv.FanArtTVLogoDTO;
 import com.techgrounds.netflix.dto.tmdb.*;
 import com.techgrounds.netflix.response.MovieResponse;
-import com.techgrounds.netflix.response.SimilarMovieResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -14,9 +15,7 @@ import com.techgrounds.netflix.response.BrowseResponse;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 
@@ -27,26 +26,37 @@ public class NetflixService {
     @Value("${apiKey}")
     private String apiKey;
 
+    @Value("${fanApiKey}")
+    private String fanApiKey;
+
     @Autowired
     private TMDBService tmdbService;
 
+    @Autowired
+    private FanArtTVService fanArtTVService;
+
 
 //    method to call in controller for getting al details of a single movie
-    public MovieResponse getSingleMovie(Long id, boolean details, boolean similar){
+    public MovieResponse getSingleMovie(Long id, boolean similar){
         MovieResponse movieResponse = new MovieResponse();
 
 //        set basic movie information like id, title, description, release_date, runtime and genres
         TMDBMovieDTO movie = tmdbService.getMovie(id, apiKey);
-        movieResponse.setId(movie.getId())
+        movieResponse.setBackdrop_path(movie.getBackdrop_path())
+                .setId(movie.getId())
                 .setGenres(movie.getAllGenres())
                 .setTitle(movie.getTitle())
-                .setDescription(movie.getOverview())
+                .setOverview(movie.getOverview())
                 .setRelease_date(movie.getRelease_date())
                 .setRuntime(movie.getRuntime());
 
 //        set trailer
         TMDBVideoDTO videos = tmdbService.getVideos(id, apiKey);
         movieResponse.setTrailer(videos.getTrailerResult());
+
+//        set logo
+        FanArtTVLogoDTO movieLogos = fanArtTVService.getMovieLogo(id, fanApiKey);
+        movieResponse.setLogo(movieLogos.getFirstLogo());
 
 //        set keywords
         TMDBKeywordsDTO movieKeywords = tmdbService.getKeywords(id, apiKey);
@@ -63,31 +73,26 @@ public class NetflixService {
         movieResponse.setDirectors(movieCredits.getAllDirectors());
 
 
-//        TMDBSimilarDTO similarMoviesList = tmdbService.getSimilarMovies(id, apiKey);
-//        SimilarMovieResponse similarMovieResponse = new SimilarMovieResponse();
-//        similarMovieResponse.setBackdrop_path(similarMoviesList.getBackdrop_path())
-//                .setDescription(similarMoviesList.getOverview())
-//                .setId(similarMoviesList.getId())
-//                .setTitle(similarMoviesList.getTitle())
-//                .setRelease_date(similarMoviesList.getRelease_date());
-//        movieResponse.setSimilar(similarMovieResponse);
+//        set similar, only if boolean similar = true
+        if(similar) {
+            TMDBSimilarDTO similarMoviesList = tmdbService.getSimilarMovies(id, apiKey);
+            List<SimilarMovieDTO> similarMovieList = similarMoviesList.getResults()
+                    .stream()
+                    .limit(6)
+                    .map(similarMovie -> {
+                        TMDBMovieDTO moreSimilarInfo = tmdbService.getMovie(similarMovie.getId(), apiKey);
+                        similarMovie.setRuntime(moreSimilarInfo.getRuntime());
 
-//        Only get similar movies if similar parameter is true:
-//        if(similar == true) {
-//            movieResponse.setSimilar();
-//        }
+                        TMDBReleaseDatesResultsDTO similarMovieCertification = tmdbService.getCertification(similarMovie.getId(), apiKey);
+                        similarMovie.setAge_certificate(similarMovieCertification.getAllResults());
+                        return similarMovie;
+                    })
+                    .toList();
+            movieResponse.setSimilar(similarMovieList);
+        }
 
 //        return movieResponse with all set variables
         return movieResponse;
-    }
-
-    public SimilarMovieResponse getSimilarMovies(Long id, boolean details, boolean similar){
-        SimilarMovieResponse similarMovieResponse = new SimilarMovieResponse();
-        TMDBSimilarDTO similarMoviesList = tmdbService.getSimilarMovies(id, apiKey);
-
-
-
-        return similarMovieResponse;
     }
 //     
 // 

@@ -31,9 +31,8 @@ public class NetflixController {
     }
 
     @GetMapping("/movie/{id}")
-    public MovieResponse getMovieDetails(@PathVariable Long id, @RequestParam(required = false, defaultValue = "true")
-    boolean details, @RequestParam(required = false) boolean similar){
-        return netflixService.getSingleMovie(id, details, similar);
+    public MovieResponse getMovieDetails(@PathVariable Long id, @RequestParam(required = false) boolean similar){
+        return netflixService.getSingleMovie(id, similar);
     }
 }
 

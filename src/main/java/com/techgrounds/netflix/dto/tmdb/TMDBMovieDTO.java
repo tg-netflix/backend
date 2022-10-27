@@ -18,6 +18,7 @@ import java.util.List;
 public class TMDBMovieDTO {
 //    movie details will be added from TMDB endpoint /movie/{id}
 
+    private String backdrop_path;
     private long id;
     private String title;
     private String overview;
