@@ -171,15 +171,15 @@ public BrowseResponse getBrowseMovies(String categories, boolean banner, int pag
         Long randomMovieId = (long) Integer.parseInt(categorieDto.getMovies().get(randomNumber).getId());
 
         Banner banner = new Banner();
-        MovieResponse movieResponse = getSingleMovie(randomMovieId, true, false);
-//        FanArtTVLogoDTO fanArtTVLogoDTO = fanArtTVService.getLogo(randomMovieId, fanApiKey);
+        MovieResponse movieResponse = getSingleMovie(randomMovieId, false);
+        FanArtTVLogoDTO fanArtTVLogoDTO = fanArtTVService.getMovieLogo(randomMovieId, fanApiKey);
         banner.setId(movieResponse.getId());
         banner.setTrailer(movieResponse.getTrailer());
         banner.setTitle(movieResponse.getTitle());
         banner.setOverview(movieResponse.getOverview());
         banner.setAge_certificate(movieResponse.getAge_certificate());
-        banner.setLogo("");
-        banner.setBackdrop_path(tmdbService.getMovie(randomMovieId, apiKey).getBackdrop_path());
+        banner.setLogo(fanArtTVLogoDTO.getFirstLogo());
+        banner.setBackdrop_path(movieResponse.getBackdrop_path());
 
         return banner;
     }
