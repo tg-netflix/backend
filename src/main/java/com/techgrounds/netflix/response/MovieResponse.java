@@ -19,7 +19,7 @@ public class MovieResponse {
 //    private String logo;
     private List<String> genres;
     private String title;
-    private String description;
+    private String overview;
     private List<String> keywords;
     private String release_date;
     private int runtime;

@@ -1,18 +1,9 @@
 package com.techgrounds.netflix.dto.fanarttv;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import lombok.experimental.Accessors;
+import lombok.*;
 
-@Setter
-@Getter
-@ToString
+@Data
 @NoArgsConstructor
-@Accessors(chain = true)
-@JsonIgnoreProperties(ignoreUnknown = true)
+@AllArgsConstructor
 public class FanArtTVLogoDTO {
-    private String name;
 }

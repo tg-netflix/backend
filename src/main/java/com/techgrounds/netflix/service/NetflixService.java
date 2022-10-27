@@ -43,7 +43,7 @@ public class NetflixService {
         TMDBMovieDTO movie = tmdbService.getMovie(id, apiKey);
         movieResponse.setId(movie.getId())
                 .setTitle(movie.getTitle())
-                .setDescription(movie.getOverview())
+                .setOverview(movie.getOverview())
                 .setRelease_date(movie.getRelease_date())
                 .setRuntime(movie.getRuntime());
 
@@ -153,17 +153,17 @@ public BrowseResponse getBrowseMovies(String categories, boolean banner, int pag
         int min = 1;
         int max = categorieDto.getMovies().size();
         int randomNumber = ThreadLocalRandom.current().nextInt(min,max + 1);
-        Long randomMovieId = Long.valueOf(Integer.parseInt(categorieDto.getMovies().get(randomNumber).getId()));
+        Long randomMovieId = (long) Integer.parseInt(categorieDto.getMovies().get(randomNumber).getId());
 
         Banner banner = new Banner();
         MovieResponse movieResponse = getSingleMovie(randomMovieId, true, false);
-        FanArtTVLogoDTO fanArtTVLogoDTO = fanArtTVService.getLogo(randomMovieId, fanApiKey);
+//        FanArtTVLogoDTO fanArtTVLogoDTO = fanArtTVService.getLogo(randomMovieId, fanApiKey);
         banner.setId(movieResponse.getId());
         banner.setTrailer(movieResponse.getTrailer());
         banner.setTitle(movieResponse.getTitle());
-        banner.setDescription(movieResponse.getDescription());
+        banner.setOverview(movieResponse.getOverview());
         banner.setAge_certificate(movieResponse.getAge_certificate());
-        banner.setLogo(fanArtTVLogoDTO.getName());
+        banner.setLogo("");
         banner.setBackdrop_path(tmdbService.getMovie(randomMovieId, apiKey).getBackdrop_path());
 
         return banner;

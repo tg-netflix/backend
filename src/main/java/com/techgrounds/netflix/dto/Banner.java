@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Banner {
-        private String backdrop_path;//
-        private String description;
+        private String backdrop_path;
+        private String overview;
         private Long id;
         private String logo;//
         private String title;
