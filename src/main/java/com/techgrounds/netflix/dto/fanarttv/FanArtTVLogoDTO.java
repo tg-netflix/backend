@@ -18,10 +18,10 @@ import java.util.stream.Collectors;
 public class FanArtTVLogoDTO {
 //    logo url will be added from FanartTV endpoint /movies/{id}
 
-    private List<FanArtTVLogoURL> movieposter;
+    private List<FanArtTVLogoURL> movielogo;
 
     public String getFirstLogo(){
-        return getMovieposter().stream()
+        return getMovielogo().stream()
                 .map(FanArtTVLogoURL::getUrl)
                 .limit(1)
                 .collect(Collectors.joining());

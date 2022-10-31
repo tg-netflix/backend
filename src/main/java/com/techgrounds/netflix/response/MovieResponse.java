@@ -16,6 +16,7 @@ public class MovieResponse {
 //    this class will contain all variables that the frontend wishes to receive
 
     private String backdrop_path;
+    private String poster_path;
     private long id;
     private String trailer;
     private String logo;

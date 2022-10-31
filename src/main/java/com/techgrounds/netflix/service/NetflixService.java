@@ -42,13 +42,28 @@ public class NetflixService {
 
 //        set basic movie information like id, title, description, release_date, runtime and genres
         TMDBMovieDTO movie = tmdbService.getMovie(id, apiKey);
-        movieResponse.setBackdrop_path(movie.getBackdrop_path())
-                .setId(movie.getId())
+        movieResponse.setId(movie.getId())
                 .setGenres(movie.getAllGenres())
                 .setTitle(movie.getTitle())
                 .setOverview(movie.getOverview())
                 .setRelease_date(movie.getRelease_date())
                 .setRuntime(movie.getRuntime());
+
+//        set backdrop
+        if (movie.getBackdrop_path() != null){
+            movieResponse.setBackdrop_path("https://image.tmdb.org/t/p/original" + movie.getBackdrop_path());
+        }
+        else {
+            movieResponse.setBackdrop_path("https://images3.alphacoders.com/678/678085.jpg");
+        }
+
+//        set poster
+        if (movie.getPoster_path() != null) {
+            movieResponse.setPoster_path("https://image.tmdb.org/t/p/w500" + movie.getPoster_path());
+        }
+        else {
+            movieResponse.setPoster_path("https://i.chzbgr.com/full/9655877632/hD517A0BC/person-lokihee");
+        }
 
 //        set trailer
         TMDBVideoDTO videos = tmdbService.getVideos(id, apiKey);
@@ -61,7 +76,7 @@ public class NetflixService {
         }
         catch(Exception e) {
             e.printStackTrace();
-            movieResponse.setLogo("https://i.chzbgr.com/full/9655877632/hD517A0BC/person-lokihee");
+            movieResponse.setLogo("https://png.pngtree.com/png-clipart/20191111/ourmid/pngtree-3d-oops-png-black-and-gold-glossy-typography.jpg");
         }
 
 //        set keywords
@@ -87,7 +102,8 @@ public class NetflixService {
                     .limit(6)
                     .map(similarMovie -> {
                         TMDBMovieDTO moreSimilarInfo = tmdbService.getMovie(similarMovie.getId(), apiKey);
-                        similarMovie.setRuntime(moreSimilarInfo.getRuntime());
+                        similarMovie.setRuntime(moreSimilarInfo.getRuntime())
+                                .setBackdrop_path("https://image.tmdb.org/t/p/original" + moreSimilarInfo.getBackdrop_path());
 
                         TMDBReleaseDatesResultsDTO similarMovieCertification = tmdbService.getCertification(similarMovie.getId(), apiKey);
                         similarMovie.setAge_certificate(similarMovieCertification.getAllResults());
@@ -181,7 +197,7 @@ public BrowseResponse getBrowseMovies(String categories, boolean banner, int pag
             FanArtTVLogoDTO fanArtTVLogoDTO = fanArtTVService.getMovieLogo(randomMovieId, fanApiKey);
             banner.setLogo(fanArtTVLogoDTO.getFirstLogo());
         }catch (Exception e){
-            banner.setLogo("https://i.chzbgr.com/full/9655877632/hD517A0BC/person-lokihee");
+            banner.setLogo("https://png.pngtree.com/png-clipart/20191111/ourmid/pngtree-3d-oops-png-black-and-gold-glossy-typography.jpg");
         }
         banner.setId(movieResponse.getId());
         banner.setTrailer(movieResponse.getTrailer());
