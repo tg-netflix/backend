@@ -1,7 +1,7 @@
 package com.techgrounds.netflix.service;
 
 import com.techgrounds.netflix.dto.Banner;
-import com.techgrounds.netflix.dto.SimilarMovieDTO;
+import com.techgrounds.netflix.response.SimilarMovieResponse;
 import com.techgrounds.netflix.dto.fanarttv.FanArtTVLogoDTO;
 import com.techgrounds.netflix.dto.tmdb.*;
 import com.techgrounds.netflix.response.MovieResponse;
@@ -97,7 +97,7 @@ public class NetflixService {
 //        set similar, only if boolean similar = true
         if(similar) {
             TMDBSimilarDTO similarMoviesList = tmdbService.getSimilarMovies(id, apiKey);
-            List<SimilarMovieDTO> similarMovieList = similarMoviesList.getResults()
+            List<SimilarMovieResponse> similarMovieList = similarMoviesList.getResults()
                     .stream()
                     .limit(6)
                     .map(similarMovie -> {
