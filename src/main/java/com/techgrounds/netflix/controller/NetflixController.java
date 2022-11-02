@@ -2,6 +2,7 @@ package com.techgrounds.netflix.controller;
 
 import com.techgrounds.netflix.response.BrowseResponse;
 import com.techgrounds.netflix.response.MovieResponse;
+import com.techgrounds.netflix.response.SearchResponse;
 import com.techgrounds.netflix.service.BrowseService;
 import com.techgrounds.netflix.service.MovieService;
 import com.techgrounds.netflix.service.SearchService;
@@ -44,7 +45,7 @@ public class NetflixController {
     }
 
     @GetMapping("/search/movie")
-    public MovieResponse getMovieList(@RequestParam String query){
+    public SearchResponse getMovieList(@RequestParam String query){
         return searchService.getSearchedMovies(query);
     }
 }

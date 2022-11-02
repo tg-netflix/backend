@@ -3,8 +3,9 @@ package com.techgrounds.netflix.service;
 import com.techgrounds.netflix.dto.tmdb.TMDBMovieDTO;
 import com.techgrounds.netflix.dto.tmdb.TMDBReleaseDatesResultsDTO;
 import com.techgrounds.netflix.dto.tmdb.TMDBSearchDTO;
+import com.techgrounds.netflix.response.SearchResponse;
+import com.techgrounds.netflix.response.SearchedMoviesResponse;
 import org.springframework.stereotype.Service;
-import com.techgrounds.netflix.response.MovieResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -26,14 +27,17 @@ public class SearchService {
     private FanArtTVService fanArtTVService;
 
 
-    public MovieResponse getSearchedMovies(String query){
+    public SearchResponse getSearchedMovies(String query){
 
-        MovieResponse searchResponse = new MovieResponse();
+        SearchResponse searchResponse = new SearchResponse();
         TMDBSearchDTO movies = tmdbService.searchMovies(apiKey, query);
-        List<MovieResponse> searchedMovieList = movies.getResults()
+        List<SearchedMoviesResponse> searchedMovieList = movies.getResults()
                 .stream()
                 .limit(50)
                 .map(searchedMovie -> {
+                    searchedMovie.setPoster_path("https://image.tmdb.org/t/p/w500" + searchedMovie.getPoster_path())
+                            .setBackdrop_path("https://image.tmdb.org/t/p/original" + searchedMovie.getBackdrop_path());
+
                     TMDBMovieDTO moreMovieInfo = tmdbService.getMovie(searchedMovie.getId(), apiKey);
                     searchedMovie.setRuntime(moreMovieInfo.getRuntime());
 
@@ -42,7 +46,7 @@ public class SearchService {
                     return searchedMovie;
                 })
                 .toList();
-
+        searchResponse.setResults(searchedMovieList);
 
         return searchResponse;
 

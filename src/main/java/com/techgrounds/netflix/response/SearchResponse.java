@@ -1,21 +1,18 @@
-package com.techgrounds.netflix.dto.tmdb;
+package com.techgrounds.netflix.response;
 
-import com.techgrounds.netflix.response.SearchResponse;
-import com.techgrounds.netflix.response.SearchedMoviesResponse;
+import com.techgrounds.netflix.dto.tmdb.TMDBSearchDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import java.util.List;
 
-@Setter
 @Getter
-@ToString
+@Setter
 @NoArgsConstructor
 @Accessors(chain = true)
-public class TMDBSearchDTO {
+public class SearchResponse {
 
     private List<SearchedMoviesResponse> results;
 
