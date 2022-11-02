@@ -1,7 +1,5 @@
 package com.techgrounds.netflix.service;
 
-import com.techgrounds.netflix.dto.tmdb.TMDBMovieDTO;
-import com.techgrounds.netflix.dto.tmdb.TMDBReleaseDatesResultsDTO;
 import com.techgrounds.netflix.dto.tmdb.TMDBSearchDTO;
 import com.techgrounds.netflix.response.SearchResponse;
 import com.techgrounds.netflix.response.SearchedMoviesResponse;
@@ -17,14 +15,8 @@ public class SearchService {
     @Value("${apiKey}")
     private String apiKey;
 
-    @Value("${fanApiKey}")
-    private String fanApiKey;
-
     @Autowired
     private TMDBService tmdbService;
-
-    @Autowired
-    private FanArtTVService fanArtTVService;
 
 
     public SearchResponse getSearchedMovies(String query){
@@ -33,21 +25,18 @@ public class SearchService {
         TMDBSearchDTO movies = tmdbService.searchMovies(apiKey, query);
         List<SearchedMoviesResponse> searchedMovieList = movies.getResults()
                 .stream()
-                .limit(50)
+                .limit(20)
                 .map(searchedMovie -> {
-                    searchedMovie.setPoster_path("https://image.tmdb.org/t/p/w500" + searchedMovie.getPoster_path())
-                            .setBackdrop_path("https://image.tmdb.org/t/p/original" + searchedMovie.getBackdrop_path());
-
-                    TMDBMovieDTO moreMovieInfo = tmdbService.getMovie(searchedMovie.getId(), apiKey);
-                    searchedMovie.setRuntime(moreMovieInfo.getRuntime());
-
-                    TMDBReleaseDatesResultsDTO searchedMovieCertification = tmdbService.getCertification(searchedMovie.getId(), apiKey);
-                    searchedMovie.setAge_certificate(searchedMovieCertification.getAllResults());
+                    if(searchedMovie.getBackdrop_path() != null){
+                        searchedMovie.setBackdrop_path("https://image.tmdb.org/t/p/original" + searchedMovie.getBackdrop_path());
+                    }
+                    else{
+                        searchedMovie.setBackdrop_path("https://images3.alphacoders.com/678/678085.jpg");
+                    }
                     return searchedMovie;
                 })
                 .toList();
         searchResponse.setResults(searchedMovieList);
-
         return searchResponse;
 
     }
