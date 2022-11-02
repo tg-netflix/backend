@@ -1,6 +1,5 @@
 package com.techgrounds.netflix.response;
 
-import com.techgrounds.netflix.dto.SimilarMovieDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,5 +29,5 @@ public class MovieResponse {
     private List<String> actors;
     private List<String> writers;
     private List<String> directors;
-    private List<SimilarMovieDTO> similar;
+    private List<SimilarMovieResponse> similar;
 }

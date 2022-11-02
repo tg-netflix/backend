@@ -1,4 +1,4 @@
-package com.techgrounds.netflix.dto;
+package com.techgrounds.netflix.response;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 @Setter
 @NoArgsConstructor
 @Accessors(chain = true)
-public class SimilarMovieDTO {
+public class SimilarMovieResponse {
 //    similar will be added from TMDB endpoint /movie/{id}/similar
 //    in here the needed variables for the results list will be determined
 
