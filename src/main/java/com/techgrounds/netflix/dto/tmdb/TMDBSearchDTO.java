@@ -1,6 +1,5 @@
 package com.techgrounds.netflix.dto.tmdb;
 
-import com.techgrounds.netflix.response.SearchResponse;
 import com.techgrounds.netflix.response.SearchedMoviesResponse;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +15,8 @@ import java.util.List;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class TMDBSearchDTO {
+//    searched movies will be added from TMDB endpoint /search/movie
+//    gets list of variables determined in SearchedMoviesResponse
 
     private List<SearchedMoviesResponse> results;
 

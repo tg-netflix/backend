@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class SearchResponse {
+//    gets list of variables determined in SearchedMoviesResponse
 
     private List<SearchedMoviesResponse> results;
 

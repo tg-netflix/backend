@@ -19,7 +19,9 @@ public class SearchService {
     private TMDBService tmdbService;
 
 
+//    method to call in controller for getting searched movies
     public SearchResponse getSearchedMovies(String query){
+//        set information needed from searched movies
 
         SearchResponse searchResponse = new SearchResponse();
         TMDBSearchDTO movies = tmdbService.searchMovies(apiKey, query);
@@ -27,6 +29,7 @@ public class SearchService {
                 .stream()
                 .limit(20)
                 .map(searchedMovie -> {
+//                    set backdrop
                     if(searchedMovie.getBackdrop_path() != null){
                         searchedMovie.setBackdrop_path("https://image.tmdb.org/t/p/original" + searchedMovie.getBackdrop_path());
                     }
@@ -38,6 +41,5 @@ public class SearchService {
                 .toList();
         searchResponse.setResults(searchedMovieList);
         return searchResponse;
-
     }
 }
