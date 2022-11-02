@@ -47,4 +47,7 @@ public interface TMDBService {
 
     @GetMapping("/movie/{id}/similar")
     TMDBSimilarDTO getSimilarMovies(@PathVariable Long id, @RequestParam("api_key") String apiKey);
+
+    @GetMapping("/search/movie")
+    TMDBSearchDTO searchMovies(@RequestParam("api_key") String apiKey, @RequestParam String query);
 }

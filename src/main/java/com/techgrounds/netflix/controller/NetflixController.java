@@ -4,6 +4,7 @@ import com.techgrounds.netflix.response.BrowseResponse;
 import com.techgrounds.netflix.response.MovieResponse;
 import com.techgrounds.netflix.service.BrowseService;
 import com.techgrounds.netflix.service.MovieService;
+import com.techgrounds.netflix.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,9 @@ public class NetflixController {
     @Autowired
     private BrowseService browseService;
 
+    @Autowired
+    private SearchService searchService;
+
     @GetMapping(value = "/browse")
     public BrowseResponse getDiscoverMovie(
             @RequestParam String categories,
@@ -37,6 +41,11 @@ public class NetflixController {
     @GetMapping("/movie/{id}")
     public MovieResponse getMovieDetails(@PathVariable Long id, @RequestParam(required = false) boolean similar){
         return movieService.getSingleMovie(id, similar);
+    }
+
+    @GetMapping("/search/movie")
+    public MovieResponse getMovieList(@RequestParam String query){
+        return searchService.getSearchedMovies(query);
     }
 }
 
