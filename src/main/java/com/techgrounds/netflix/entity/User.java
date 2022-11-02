@@ -1,12 +1,15 @@
 package com.techgrounds.netflix.entity;
 
+import lombok.AllArgsConstructor;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.UniqueConstraint;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,12 +18,4 @@ public class User {
     public String name;
 
     public ArrayList<Long> liked;
-    public LocalDate date;
-
-    public User(long id, String name, ArrayList<Long> liked, LocalDate date) {
-        ID = id;
-        this.name = name;
-        this.liked = liked;
-        this.date = date;
-    }
 }
