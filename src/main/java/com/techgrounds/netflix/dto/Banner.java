@@ -11,7 +11,7 @@ public class Banner {
         private String backdrop_path;
         private String overview;
         private Long id;
-        private String logo;//
+        private String logo;
         private String title;
         private String trailer;
         private String age_certificate;

@@ -104,12 +104,7 @@ public class BrowseService {
 
         Banner banner = new Banner();
         MovieResponse movieResponse = movieService.getSingleMovie(randomMovieId, false);
-        try {
-            FanArtTVLogoDTO fanArtTVLogoDTO = fanArtTVService.getMovieLogo(randomMovieId, fanApiKey);
-            banner.setLogo(fanArtTVLogoDTO.getFirstLogo());
-        }catch (Exception e){
-            banner.setLogo("https://png.pngtree.com/png-clipart/20191111/ourmid/pngtree-3d-oops-png-black-and-gold-glossy-typography.jpg");
-        }
+        banner.setLogo(movieResponse.getLogo());
         banner.setId(movieResponse.getId());
         banner.setTrailer(movieResponse.getTrailer());
         banner.setTitle(movieResponse.getTitle());
