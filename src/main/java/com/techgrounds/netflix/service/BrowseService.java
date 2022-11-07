@@ -1,7 +1,9 @@
 package com.techgrounds.netflix.service;
 
 import com.techgrounds.netflix.dto.Banner;
+import com.techgrounds.netflix.dto.MovieDto;
 import com.techgrounds.netflix.dto.fanarttv.FanArtTVLogoDTO;
+import com.techgrounds.netflix.dto.tmdb.TMDBSearchDTO;
 import com.techgrounds.netflix.response.MovieResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -118,15 +120,16 @@ public class BrowseService {
     public CategorieDto getPopularMovie(String genreName, int page){
         TMDBDiscover tmdbDiscover = tmdbService.popularMovie(apiKey, page);
         CategorieDto categorieDto = new CategorieDto();
-        categorieDto.setMovies(tmdbDiscover.getResults());
-        categorieDto.setPage(tmdbDiscover.getPage());
+        categorieDto.setMovies(getListResult(tmdbDiscover.getResults()));
+        categorieDto.setPage(String.valueOf(page));
         categorieDto.setName(genreName);
+
         return categorieDto;
     }
     public CategorieDto getTopRatedMovie(String genreName, int page){
         TMDBDiscover tmdbDiscover = tmdbService.topRatedMovie(apiKey, page);
         CategorieDto categorieDto = new CategorieDto();
-        categorieDto.setMovies(tmdbDiscover.getResults());
+        categorieDto.setMovies(getListResult(tmdbDiscover.getResults()));
         categorieDto.setPage(tmdbDiscover.getPage());
         categorieDto.setName(genreName);
         return categorieDto;
@@ -134,9 +137,24 @@ public class BrowseService {
     public CategorieDto getMovies(String genreName, String sortBy, String dateToday, String with_company, int yearRand, int page){
         TMDBDiscover tmdbDiscover = tmdbService.movieNonGenre(apiKey, genreName, sortBy, dateToday, with_company, yearRand, page);
         CategorieDto categorieDto = new CategorieDto();
-        categorieDto.setMovies(tmdbDiscover.getResults());
+        categorieDto.setMovies(getListResult(tmdbDiscover.getResults()));
         categorieDto.setPage(tmdbDiscover.getPage());
         categorieDto.setName(genreName);
         return categorieDto;
+    }
+    public List<MovieDto> getListResult(List<MovieDto> listResult){
+        List<MovieDto> searchedMovieList = listResult
+                .stream()
+                .map(searchedMovie -> {
+                    if(searchedMovie.getBackdrop_path() != null){
+                        searchedMovie.setBackdrop_path("https://image.tmdb.org/t/p/original" + searchedMovie.getBackdrop_path());
+                    }
+                    else{
+                        searchedMovie.setBackdrop_path("https://images3.alphacoders.com/678/678085.jpg");
+                    }
+                    return searchedMovie;
+                })
+                .toList();
+        return searchedMovieList;
     }
 }

@@ -1,6 +1,6 @@
 package com.techgrounds.netflix.dto.tmdb;
 
-import com.techgrounds.netflix.response.SearchedMoviesResponse;
+import com.techgrounds.netflix.dto.MovieDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +18,6 @@ public class TMDBSearchDTO {
 //    searched movies will be added from TMDB endpoint /search/movie
 //    gets list of variables determined in SearchedMoviesResponse
 
-    private List<SearchedMoviesResponse> results;
+    private List<MovieDto> results;
 
 }

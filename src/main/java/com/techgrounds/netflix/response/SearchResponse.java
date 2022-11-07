@@ -1,5 +1,6 @@
 package com.techgrounds.netflix.response;
 
+import com.techgrounds.netflix.dto.MovieDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,6 @@ import java.util.List;
 public class SearchResponse {
 //    gets list of variables determined in SearchedMoviesResponse
 
-    private List<SearchedMoviesResponse> results;
+    private List<MovieDto> results;
 
 }

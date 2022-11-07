@@ -1,8 +1,8 @@
 package com.techgrounds.netflix.service;
 
+import com.techgrounds.netflix.dto.MovieDto;
 import com.techgrounds.netflix.dto.tmdb.TMDBSearchDTO;
 import com.techgrounds.netflix.response.SearchResponse;
-import com.techgrounds.netflix.response.SearchedMoviesResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,7 +25,7 @@ public class SearchService {
 
         SearchResponse searchResponse = new SearchResponse();
         TMDBSearchDTO movies = tmdbService.searchMovies(apiKey, query);
-        List<SearchedMoviesResponse> searchedMovieList = movies.getResults()
+        List<MovieDto> searchedMovieList = movies.getResults()
                 .stream()
                 .limit(20)
                 .map(searchedMovie -> {
