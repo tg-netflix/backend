@@ -24,7 +24,7 @@ public interface TMDBService {
                                @RequestParam(value = "with_genres", required = false,  defaultValue = "") String genreId,
                                @RequestParam(value = "sort_by", required = false,  defaultValue = "popularity.desc") String sortBy,
                                @RequestParam(value = "release_date.lte", required = false,  defaultValue = "#{T(java.time.LocalDate).now()}") String date,
-                               @RequestParam(value = "with_company", required = false, defaultValue = "") String companyId,
+                               @RequestParam(value = "with_companies", required = false, defaultValue = "") String companyId,
                                @RequestParam(value = "primary_release_year", required = false) int yearRand,
                                @RequestParam(value = "page", required = false,  defaultValue = "1") int page);
 
