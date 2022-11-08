@@ -117,6 +117,7 @@ public class BrowseService {
     }
 
     public CategorieDto getPopularMovie(String genreName, int page){
+        genreName = genreName.substring(0,1).toUpperCase() + genreName.substring(1).toLowerCase();
         TMDBDiscover tmdbDiscover = tmdbService.popularMovie(apiKey, page);
         CategorieDto categorieDto = new CategorieDto();
         categorieDto.setMovies(tmdbDiscover.getResults());
@@ -125,6 +126,7 @@ public class BrowseService {
         return categorieDto;
     }
     public CategorieDto getTopRatedMovie(String genreName, int page){
+        genreName = "Top Rated";
         TMDBDiscover tmdbDiscover = tmdbService.topRatedMovie(apiKey, page);
         CategorieDto categorieDto = new CategorieDto();
         categorieDto.setMovies(tmdbDiscover.getResults());
@@ -133,13 +135,11 @@ public class BrowseService {
         return categorieDto;
     }
     public CategorieDto getMovies(String genreName, String genreId, String sortBy, String dateToday, String with_company, int yearRand, int page){
-        System.out.println(genreId);
-        System.out.println(yearRand);
-//        TMDBDiscover tmdbDiscover = tmdbService.movieNonGenre(apiKey, genreId, sortBy, dateToday, with_company, yearRand, page);
         TMDBDiscover tmdbDiscover = tmdbService.movieNonGenre(apiKey, genreId, sortBy, dateToday, with_company, yearRand, page);
         CategorieDto categorieDto = new CategorieDto();
         categorieDto.setMovies(tmdbDiscover.getResults());
         categorieDto.setPage(tmdbDiscover.getPage());
+        genreName = genreName.substring(0,1).toUpperCase() + genreName.substring(1).toLowerCase();
         categorieDto.setName(genreName);
         return categorieDto;
     }
