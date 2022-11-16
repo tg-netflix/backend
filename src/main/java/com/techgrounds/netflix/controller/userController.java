@@ -1,6 +1,7 @@
 package com.techgrounds.netflix.controller;
 
-import com.techgrounds.netflix.service.MemoryUserService;
+
+import com.techgrounds.netflix.service.UserServiceH2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user/")
 public class userController {
     @Autowired
-    MemoryUserService userService;
+    UserServiceH2 userService;
 
     @GetMapping("/liked")
     public ResponseEntity getLiked(@RequestParam String user) {

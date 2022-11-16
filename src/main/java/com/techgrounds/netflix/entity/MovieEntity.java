@@ -1,18 +1,22 @@
 package com.techgrounds.netflix.entity;
 
+//import com.techgrounds.netflix.repository.MovieRepository;
 import com.techgrounds.netflix.response.MovieResponse;
 import com.techgrounds.netflix.response.SimilarMovieResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Entity;
+import java.util.ArrayList;
 import java.util.List;
 
 // basicly MovieResponse but to store
-@AllArgsConstructor
+/*@AllArgsConstructor
 @Setter
 @Getter
-public class Movie {
+@Entity
+public class MovieEntity {
     public String backdrop_path;
     public String poster_path;
     public long id;
@@ -30,8 +34,8 @@ public class Movie {
     public List<String> directors;
     public List<Long> similar;
 
-    public static Movie FromMovieResponse(MovieResponse original) {
-        return new Movie(
+    public static MovieEntity FromMovieResponse(MovieResponse original) {
+        return new MovieEntity(
                 original.getBackdrop_path(),
                 original.getPoster_path(),
                 original.getId(),
@@ -53,4 +57,26 @@ public class Movie {
         );
     }
 
+    public MovieResponse value() {
+        return new MovieResponse(
+                backdrop_path,
+                poster_path,
+                id,
+                trailer,
+                logo,
+                genres,
+                title,
+                overview,
+                keywords,
+                release_date,
+                runtime,
+                age_certificate,
+                actors,
+                writers,
+                directors,
+                new ArrayList<SimilarMovieResponse>() //@bug
+        );
+    }
+
 }
+*/

@@ -1,6 +1,10 @@
 package com.techgrounds.netflix.service;
 
+import com.techgrounds.netflix.entity.User;
+import org.springframework.data.jpa.repository.Query;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public interface UserService {
     // new create user
@@ -11,4 +15,5 @@ public interface UserService {
     ArrayList<Long> favorites(String name);
     // get suggested movies
     ArrayList<Long> suggestions(String name);
+
 }

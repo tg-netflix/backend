@@ -1,29 +1,31 @@
 package com.techgrounds.netflix.service.Cache;
 
-import com.techgrounds.netflix.repository.MovieRepository;
+//import com.techgrounds.netflix.entity.MovieEntity;
+//import com.techgrounds.netflix.repository.MovieRepository;
 import com.techgrounds.netflix.response.MovieResponse;
-import com.techgrounds.netflix.service.NetflixService;
+import com.techgrounds.netflix.service.MovieService;
 import com.techgrounds.netflix.service.TMDBService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-
-@Component
+/*
+@Service
 public class MovieCacheService {
     @Autowired
-    private NetflixService netflixService;
+    private MovieService movieService;
     @Autowired
     private MovieRepository movieRepository;
 
     public MovieResponse singleMovie(long id) {
         if (movieRepository.existsById(id))
-            return movieRepository.findById(id).get();
-        var result = netflixService.getSingleMovie(id, true);
-        movieRepository.save(result);
+            return movieRepository.findById(id).get().value();
+        var result = movieService.getSingleMovie(id, true);
+        movieRepository.save(MovieEntity.FromMovieResponse(result));
         return result;
     }
 
@@ -38,4 +40,4 @@ public class MovieCacheService {
         return (MovieResponse[]) StreamSupport.stream(iter, false)
                 .toArray();
     }
-}
+}*/

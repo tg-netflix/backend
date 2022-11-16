@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-@Component
+/*@Component
 public class MemoryUserService implements UserService {
     private HashMap<String, User> Data = new HashMap<>();
 
@@ -45,4 +45,4 @@ public class MemoryUserService implements UserService {
     public ArrayList<User> All() {
         return (ArrayList<User>) Data.values().stream().toList();
     }
-}
+}*/
