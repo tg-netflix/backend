@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
-import com.techgrounds.netflix.entity.User;
+import com.techgrounds.netflix.entity.NetflixUser;
 //import com.techgrounds.netflix.repository.UserRepository;
 import com.techgrounds.netflix.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,59 +12,38 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceH2 implements UserService {
+public class UserServiceH2 {
     @Autowired
     private UserRepository userRepository;
 
-    @Override
-    public long newUser(String name) {
-        var user = new User()
-            .setName(name)
-            .setLiked(new ArrayList<>());
-        userRepository.save(user);
-        return -1;
+    public NetflixUser newUser(String name) {
+        return userRepository.save(
+            new NetflixUser()
+                .setName(name)
+                .setLiked(new ArrayList<>())
+        );
     }
 
-    private User userWithName(String username) {
-        return userWithName(username, false);
-    }
-
-
-    private User userWithName(String userName, boolean parallel) {
-        var iter = userRepository.findAll().spliterator();
-        var user = StreamSupport.stream(iter, parallel)
-                .filter(x -> x.getName() == userName)
-                .findFirst();
-        return user.isPresent() ?
-                user.get() : null;
-    }
-
-    @Override
     public boolean setFavorite(String userName, long movieId, boolean add) {
-        var user = userWithName(userName);
-        if (user != null) {
-            var liked = user.getLiked();
-            if (add) liked.add(movieId);
-            else liked.remove(movieId);
-            return true;
-        }
-        return false;
+        var users = userRepository.userByName(userName);
+        var user = users.size() > 0 ?
+                users.get(0) : newUser(userName);
+
+        var liked = user.getLiked();
+        if (add) liked.add(movieId);
+        else liked.remove(movieId);
+        userRepository.save(user);
+        return true;
     }
 
-    @Override
     public ArrayList<Long> favorites(String userName) {
-        var user = userWithName(userName);
-        if (user != null) {
-            return user.getLiked();
-        }
-        return null;
-    }
-    @Override
-    public ArrayList<Long> suggestions(String user) {
-        return null;
+        var users = userRepository.userByName(userName);
+        var user = users.size() >= 1 ?
+                users.get(0) : newUser(userName);
+        return user.getLiked();
     }
 
-    public List<User> userByName(String name) {
-        return new ArrayList<>(List.of(userWithName(name)));
+    public ArrayList<Long> suggestions(String user) {
+        return null; //TODO create algorithm for this
     }
 }

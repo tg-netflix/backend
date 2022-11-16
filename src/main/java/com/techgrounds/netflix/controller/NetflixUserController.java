@@ -3,15 +3,21 @@ package com.techgrounds.netflix.controller;
 
 import com.techgrounds.netflix.service.UserServiceH2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user/")
-public class userController {
+public class NetflixUserController {
     @Autowired
     UserServiceH2 userService;
+
+    @PostMapping("/new")
+    public ResponseEntity newUser(@RequestParam String user) {
+        return new ResponseEntity(userService.newUser(user), HttpStatus.OK);
+    }
 
     @GetMapping("/liked")
     public ResponseEntity getLiked(@RequestParam String user) {
