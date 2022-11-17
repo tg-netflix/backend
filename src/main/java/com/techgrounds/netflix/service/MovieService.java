@@ -85,7 +85,6 @@ public class MovieService {
         movieResponse.setWriters(movieCredits.getAllWriters());
         movieResponse.setDirectors(movieCredits.getAllDirectors());
 
-
 //        set similar, only if boolean similar = true
         if(similar) {
             TMDBSimilarDTO similarMoviesList = tmdbService.getSimilarMovies(id, apiKey);
