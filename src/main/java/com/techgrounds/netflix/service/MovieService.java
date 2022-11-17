@@ -68,7 +68,6 @@ public class MovieService {
         }
         catch(Exception e) {
             e.printStackTrace();
-            movieResponse.setLogo("https://png.pngtree.com/png-clipart/20191111/ourmid/pngtree-3d-oops-png-black-and-gold-glossy-typography.jpg");
         }
 
 //        set keywords

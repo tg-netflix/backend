@@ -65,23 +65,24 @@ public class BrowseService {
                         newCateList.add(getTopRatedMovie(eachCate, page));
                         break;
                     case "latest":
-                        newCateList.add(getMovies(eachCate,"release_date.desc",today.toString(), "", defaultYear, page));
+                        newCateList.add(getMovies(eachCate, "","release_date.desc",today.toString(), "", defaultYear, page));
                         break;
                     case "disney":
-                        newCateList.add(getMovies(eachCate,"",today.toString(),"2", defaultYear, page));
+                        newCateList.add(getMovies(eachCate, "","popularity.desc",today.toString(),"2", defaultYear, page));
                         break;
                     case "classic":
                         int min = 1980;
                         int max = 1999;
-                        defaultYear = ThreadLocalRandom.current().nextInt(min,max + 1);;
-                        newCateList.add(getMovies(eachCate,"",today.toString(), "", defaultYear, page));
+                        defaultYear = ThreadLocalRandom.current().nextInt(min,max + 1);
+                        System.out.println(defaultYear);
+                        newCateList.add(getMovies(eachCate, "","popularity.desc", today.toString(), "", defaultYear, page));
                         break;
                     default:
                         System.out.println(eachCate + " : do not exist");
                         break;
                 }
             }else{
-                newCateList.add(getMovies(findGenre.getName(),"",today.toString(),  "", defaultYear, page));
+                newCateList.add(getMovies(findGenre.getName(), String.valueOf(findGenre.getId()),"popularity.desc",today.toString(),  "", defaultYear, page));
             }
 //            }
 //            catch (Exception e){
@@ -104,12 +105,7 @@ public class BrowseService {
 
         Banner banner = new Banner();
         MovieResponse movieResponse = movieService.getSingleMovie(randomMovieId, false);
-        try {
-            FanArtTVLogoDTO fanArtTVLogoDTO = fanArtTVService.getMovieLogo(randomMovieId, fanApiKey);
-            banner.setLogo(fanArtTVLogoDTO.getFirstLogo());
-        }catch (Exception e){
-            banner.setLogo("https://png.pngtree.com/png-clipart/20191111/ourmid/pngtree-3d-oops-png-black-and-gold-glossy-typography.jpg");
-        }
+        banner.setLogo(movieResponse.getLogo());
         banner.setId(movieResponse.getId());
         banner.setTrailer(movieResponse.getTrailer());
         banner.setTitle(movieResponse.getTitle());
@@ -121,6 +117,7 @@ public class BrowseService {
     }
 
     public CategorieDto getPopularMovie(String genreName, int page){
+        genreName = genreName.substring(0,1).toUpperCase() + genreName.substring(1).toLowerCase();
         TMDBDiscover tmdbDiscover = tmdbService.popularMovie(apiKey, page);
         CategorieDto categorieDto = new CategorieDto();
         categorieDto.setMovies(tmdbDiscover.getResults());
@@ -129,6 +126,7 @@ public class BrowseService {
         return categorieDto;
     }
     public CategorieDto getTopRatedMovie(String genreName, int page){
+        genreName = "Top Rated";
         TMDBDiscover tmdbDiscover = tmdbService.topRatedMovie(apiKey, page);
         CategorieDto categorieDto = new CategorieDto();
         categorieDto.setMovies(tmdbDiscover.getResults());
@@ -136,11 +134,12 @@ public class BrowseService {
         categorieDto.setName(genreName);
         return categorieDto;
     }
-    public CategorieDto getMovies(String genreName, String sortBy, String dateToday, String with_company, int yearRand, int page){
-        TMDBDiscover tmdbDiscover = tmdbService.movieNonGenre(apiKey, genreName, sortBy, dateToday, with_company, yearRand, page);
+    public CategorieDto getMovies(String genreName, String genreId, String sortBy, String dateToday, String with_company, int yearRand, int page){
+        TMDBDiscover tmdbDiscover = tmdbService.movieNonGenre(apiKey, genreId, sortBy, dateToday, with_company, yearRand, page);
         CategorieDto categorieDto = new CategorieDto();
         categorieDto.setMovies(tmdbDiscover.getResults());
         categorieDto.setPage(tmdbDiscover.getPage());
+        genreName = genreName.substring(0,1).toUpperCase() + genreName.substring(1).toLowerCase();
         categorieDto.setName(genreName);
         return categorieDto;
     }
